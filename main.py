@@ -1,6 +1,7 @@
 from pandas import array
 from tqdm import tqdm
 import time
+from DatabaseTools.AnnualReports_Repository import AnnualReportsRepo
 
 from ScrapingTools.AnnualReportsController import NBBScraper as nbs
 from ScrapingTools.WebScraperController import WebScraper as wbs
@@ -37,7 +38,7 @@ class MainApp():
         time.sleep(1)
 
 
-    def updateAll():
+    def updateAll(array):
 
         app = MainApp()
 
@@ -48,11 +49,15 @@ class MainApp():
         2. Rijen opslaan onder waarde. row[0] = ondnr / row[1] = site
         """
 
-        rows = []
+        rows = array
 
         if len(rows) != 0:
             for row in tqdm(rows):
-                app.updateOne(row[0], row[1])
+                
+                compNr = row[0]
+                site = row[1]
+
+                app.updateOne(compNr, site)
 
 
 

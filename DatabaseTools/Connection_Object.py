@@ -10,7 +10,6 @@ class Connection():
     Base = declarative_base(pg_engine)
     Base.metadata.reflect(pg_engine)
 
-
     __engine__ = pg_engine
     __conn__ = pg_conn
     __Base__ = Base

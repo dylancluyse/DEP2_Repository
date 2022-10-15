@@ -1,10 +1,6 @@
-###
-# 
-# IMPORTS TODO
-# 
-# #
-
-
+"""
+IMPORTS
+"""
 #Gebruik voor de bulk van web scraping.
 from base64 import decode
 from bs4 import BeautifulSoup
@@ -36,7 +32,13 @@ import re
 # Opmerking: installeer hiervoor de laatste versie van 'ipywidgets'. Gebruik hiervoor m.a.w. 'pip install ipywidgets'.
 from tqdm import tqdm
 
-contentDIR = "c:/Users/dylan/DEP2_Repository/ScrapingTools/contents/"
+# from Storage import Constant_Variables
+
+"""
+END IMPORTS
+"""
+
+contentDIR = 'ScrapingTools/contents/'
 
 #################################################################################################################
 #################################################################################################################
@@ -107,6 +109,8 @@ class WebScraper():
             # Opslaan onder /contents/
             path = contentDIR
             file = naam + '.txt'
+
+            print(path + file)
 
             # print(file)
 
