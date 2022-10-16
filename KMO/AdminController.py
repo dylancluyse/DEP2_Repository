@@ -1,4 +1,4 @@
-from DatabaseTools.Connection_Object import Connection
+from DatabaseTools.ConnectionController import Connection
 
 class AdminController():
 

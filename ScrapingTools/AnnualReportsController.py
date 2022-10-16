@@ -21,20 +21,20 @@ import requests as req
 # ################# #
 # Global variables #
 # ################ #
-
 url = 'https://consult.cbso.nbb.be/'
 
 
 class NBBScraper():
+  
+  """
   def findCompanyNr():
     file = 'ScrapingTools/csv/all.csv'
     df = pd.read_csv(file)
     ls = df['Ondernemingsnummer'].tolist()
     return ls
-
+  """
 
   def download_nbb(companyNr):
-    # br = webdriver.Chrome(service = Service(ChromeDriverManager().install()))
     br = webdriver.Chrome(executable_path='./chromedriver.exe')
     br.get(url)
 
@@ -49,10 +49,6 @@ class NBBScraper():
       wait = WebDriverWait(br, 10)
       wait.until(EC.presence_of_element_located((By.XPATH, ondNrButton))).click()
       
-      #br.find_element(By.XPATH, ondNrButton).click()
-      #br.find_element(By.XPATH, ondNrTextBox).send_keys('0431 852 314')
-      
-
       xpathPDFDownload = '/html/body/app-root/div/main/div/app-search-result/div/div[2]/app-deposit-list/div/div[3]/app-deposit-item[1]/div/div[5]/app-download-deposit-pdf-button/button'
       xpathCSVDownload= '/html/body/app-root/div/main/div/app-search-result/div/div[2]/app-deposit-list/div/div[3]/app-deposit-item[1]/div/div[5]/app-download-deposit-csv-button/button'
 
@@ -83,6 +79,17 @@ class NBBScraper():
 
     finally:
       br.quit()
+
+
+  """
+  TODO
+  """
+  def add_nbb_contents():
+
+    from DatabaseTools.AnnualReports_Repository import AnnualReportsRepo
+    
+    AnnualReportsRepo().add_NBB_PDF()
+    AnnualReportsRepo().add_NBB_PDF()
 
 
 

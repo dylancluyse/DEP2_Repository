@@ -32,6 +32,8 @@ import re
 # Opmerking: installeer hiervoor de laatste versie van 'ipywidgets'. Gebruik hiervoor m.a.w. 'pip install ipywidgets'.
 from tqdm import tqdm
 
+from DatabaseTools.WebScraper_Repository import WebScraperRepo
+
 # from Storage import Constant_Variables
 
 """
@@ -40,23 +42,28 @@ END IMPORTS
 
 contentDIR = 'ScrapingTools/contents/'
 
-#################################################################################################################
-#################################################################################################################
-#################################################################################################################
+"""
+
+"""
 
 # Useragent aanmaken
 useragent = {'User-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:63.0) Gecko/20100101 Firefox/63.0'}
 
 class WebScraper():
 
-    # CSV-bestanden aanmaken op basis van het Excel-bestand
+    """
+    CSV-bestanden aanmaken op basis van het Excel-bestand
+    """
     def xlsxToCSV():
         provincies = ['Oost-Vl', 'West-Vl', 'Antwerpen', 'Limburg',  'Vl-Brabant']
         for prov in provincies:
             read_file = pd.read_excel (r'prioriteitenlijst.xlsx', sheet_name=prov)
             read_file.to_csv (r'{}.csv'.format(prov), index=None, header=True)
 
-
+    
+    """
+    Creating logs specifically for the webscraper.
+    """
     def logScraper(site):
         txt_file = open("logs/logScraper.txt", "a+")
         txt_file.seek(0)
@@ -65,7 +72,9 @@ class WebScraper():
         txt_file.close()
 
 
-    # Alle websites ophalen uit het CSV-bestand
+    """
+    Used for retrieving all the combos (Ondernemingsnummer & website)
+    """
     def tekstbestandUitschrijven():
         try:
             oldpwd=os.getcwd()
@@ -136,11 +145,9 @@ class WebScraper():
         # Pauze van drie seconden.
         time.sleep(1)
 
-    ###
-    #
-    # Welke tags sluiten we uit bij het scrapen? TODO
-    #
-    ###
+    """
+    We'll be excluding tags that only add filler to the webcontentsfiles. 
+    """
     def tag_visible(element):
         if element.parent.name in ['style', 'script', 'head', 'title', 'meta', '[document]', 'nav']:
             return False
@@ -149,11 +156,9 @@ class WebScraper():
         return True
 
 
-    ###
-    # 
-    #  Functie om te tonen hoe gelijkaardig twee URL's zijn TODO
-    #
-    ###
+    """
+    This function will look up if a webpage falls within the same reach as the other. How similar is the hyperlink to the original site?
+    """
     def compareSite(adres1, adres2):
         n = mean(len(adres1) + len(adres2))
         t = 0
@@ -163,11 +168,9 @@ class WebScraper():
         return t/n > 0.4
 
 
-    ###
-    # 
-    # De Scraping-functie. TODO
-    # 
-    ###
+    """
+    The scraper.
+    """
     def siteScraper(adres, og, ondnr, arr=set(), visited=set()):
         try:
             # Op het einde van de rit
@@ -219,8 +222,17 @@ class WebScraper():
             print(f"Site '{adres}' failed")
 
 
+    """
+    TODO
+    """
+    def addWebcontentsToDatabase():
+        WebScraperRepo.adding_Content()
+
+
 
 """
+TODO --> niet langer in gebruik
+
 #################################################################################################################
 ###########################                 Applicatie             ##############################################
 #################################################################################################################

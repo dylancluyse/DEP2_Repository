@@ -1,9 +1,9 @@
 from pandas import array
 from tqdm import tqdm
 import time
-from DatabaseTools.AnnualReports_Repository import AnnualReportsRepo
 
 from ScrapingTools.AnnualReportsController import NBBScraper as nbs
+from ScrapingTools.FileController import FileController as fcs
 from ScrapingTools.WebScraperController import WebScraper as wbs
 
 
@@ -25,7 +25,8 @@ class MainApp():
         1. Uitschrijven naar tekstbestand. (eventueel weglaten)
         2. Site scrapen.
         3. Log schrijven naar tekstbestand.
-        4. Content scraper naar databank.
+        4. Webcontents naar databank.
+        5. NBB (PDF + CSV) info naar databank.
         """
 
         wbs.tekstbestandUitschrijven()
@@ -36,6 +37,21 @@ class MainApp():
 
         wbs.logScraper(site)
         time.sleep(1)
+
+        """
+        TODO
+        SQL-queries --> repo functies
+        """
+
+        wbs.addWebcontentsToDatabase()
+        nbs.add_nbb_contents()
+
+
+        """
+        TODO
+        Moving all scrapete files to the backup folder.
+        """
+        fcs.move_files()
 
 
     def updateAll(array):
@@ -62,5 +78,3 @@ class MainApp():
 
 
 MainApp.updateOne('0431 852 314', 'https://www.unizo.be/')
-
-MainApp.updateAll

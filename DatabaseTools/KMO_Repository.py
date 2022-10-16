@@ -19,7 +19,7 @@ Ik verwijs naar een klasse die de verbinding met de databank aanmaakt.
 Op deze manier vermijden we het constant hergebruiken van dezelfde lijnen code. 
 Ook moeten we de verbinding niet telkens op ieder bestand aanpassen.
 """
-from Connection_Object import Connection as conn
+from ConnectionController import Connection as conn
 
 class KMO(conn.Base):
     __table__ = conn.Base.metadata.tables['KMO']
@@ -51,7 +51,7 @@ class KMO_Repo():
     CSV Importeren
     """
     def KMO_toevoegen(dataframe):
-        ...
+        pass
 
 
 

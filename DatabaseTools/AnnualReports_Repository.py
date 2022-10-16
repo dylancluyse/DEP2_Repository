@@ -1,8 +1,5 @@
 from ScrapingTools.FileController import FileController
-from Connection_Object import Connection
-
-
-
+#from ConnectionController import Connection as conn
 
 class AnnualReportsRepo():
 

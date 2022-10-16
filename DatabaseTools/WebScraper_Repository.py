@@ -5,8 +5,8 @@ from sqlalchemy.ext.declarative import declarative_base
 import pandas as pd
 import glob, os
 
-from DatabaseTools import Connection_Object
-from Connection_Object import Connection as conn
+from DatabaseTools import ConnectionController
+from DatabaseTools.ConnectionController import Connection as conn
 from ScrapingTools.FileController import FileController
 from Storage.Constant_Variables import VGV as vgv
 
