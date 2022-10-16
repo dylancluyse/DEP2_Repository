@@ -26,8 +26,6 @@ url = 'https://consult.cbso.nbb.be/'
 
 
 class NBBScraper():
-
-
   def findCompanyNr():
     file = 'ScrapingTools/csv/all.csv'
     df = pd.read_csv(file)
@@ -35,11 +33,7 @@ class NBBScraper():
     return ls
 
 
-  def download_pdf(companyNr):
-    delay = 10
-
-    data = [None]
-
+  def download_nbb(companyNr):
     # br = webdriver.Chrome(service = Service(ChromeDriverManager().install()))
     br = webdriver.Chrome(executable_path='./chromedriver.exe')
     br.get(url)
@@ -55,15 +49,31 @@ class NBBScraper():
       wait = WebDriverWait(br, 10)
       wait.until(EC.presence_of_element_located((By.XPATH, ondNrButton))).click()
       
-      
       #br.find_element(By.XPATH, ondNrButton).click()
       #br.find_element(By.XPATH, ondNrTextBox).send_keys('0431 852 314')
       
 
-      xpathDownload = '/html/body/app-root/div/main/div/app-search-result/div/div[2]/app-deposit-list/div/div[3]/app-deposit-item[1]/div/div[5]/app-download-deposit-pdf-button/button'
+      xpathPDFDownload = '/html/body/app-root/div/main/div/app-search-result/div/div[2]/app-deposit-list/div/div[3]/app-deposit-item[1]/div/div[5]/app-download-deposit-pdf-button/button'
+      xpathCSVDownload= '/html/body/app-root/div/main/div/app-search-result/div/div[2]/app-deposit-list/div/div[3]/app-deposit-item[1]/div/div[5]/app-download-deposit-csv-button/button'
 
-      wait = WebDriverWait(br, 10)
-      wait.until(EC.element_to_be_clickable((By.XPATH, xpathDownload))).click()
+      try:
+        wait = WebDriverWait(br, 10)
+        wait.until(EC.element_to_be_clickable((By.XPATH, xpathPDFDownload))).click()
+      except:
+        """
+        TODO log uitschrijven
+        """
+      
+      time.sleep(2)
+
+      try:
+        wait = WebDriverWait(br, 10)
+        wait.until(EC.element_to_be_clickable((By.XPATH, xpathCSVDownload))).click()
+      except:
+        """
+        TODO log uitschrijven
+        """
+        print('CSV NIET GEVONDEN')
 
       time.sleep(5)
 

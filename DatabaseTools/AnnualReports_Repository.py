@@ -1,7 +1,7 @@
 class AnnualReportsRepo():
     
-    def convert_pdf_to_plaintext():
-        ...
+    def add_NBB_CSV():
+        pass
 
-    def add_pdftext_to_sql():
-        ...
+    def add_NBB_PDF():
+        pass

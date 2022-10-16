@@ -17,7 +17,7 @@ class MainApp():
         3. PDF omzetten. 
         4. Content PDF naar databank.
         """
-        nbs.download_pdf(companyNr)
+        nbs.download_nbb(companyNr)
         
 
         """
@@ -62,3 +62,5 @@ class MainApp():
 
 
 MainApp.updateOne('0431 852 314', 'https://www.unizo.be/')
+
+MainApp.updateAll

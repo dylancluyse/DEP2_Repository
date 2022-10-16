@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 class Connection():
-    pg_engine = create_engine('postgresql://root:DEPgroep1@vichogent.be:40032/...')
+    pg_engine = create_engine('postgresql://postgres:DEPgroep1@vichogent.be:40032')
     pg_conn = pg_engine.connect()
     metadata = MetaData(pg_engine)
 
