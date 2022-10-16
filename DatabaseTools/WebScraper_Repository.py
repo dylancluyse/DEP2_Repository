@@ -7,60 +7,27 @@ import glob, os
 
 from DatabaseTools import Connection_Object
 from Connection_Object import Connection as conn
+from ScrapingTools.FileController import FileController
 from Storage.Constant_Variables import VGV as vgv
 
 class WebScraperRepo():
+
+    def __init__(self) -> None:
+        pass
+    
     """
-    RETURNS: The contents of the given filename if it exists.
+    Main-function for this repository. It will follow these steps:
+    1. Check if there's a webcontents file and save the contents as a variable 'webcontents'.
+    TODO
+    2. Store the webcontents to the database using a Postgres-query.
+        2.1. Verbinding opstarten
+        2.2. UPDATE-query uitvoeren op databank. Content-veld invullen als het niet bestaat. --> EERD
+        2.3. Commit + close.
     """
-    def readContents(filename):
-        f = open(filename, "r")
-        return f.read()
-
-    """
-    Deletes the file after the contents has been succesfully uploaded to the database.
-    """
-    def deleteContents(filename):
-        ...
-
-
-    def contents_To_Database(ondnr, content):
-        """
-        1. Verbinding opstarten
-        2. UPDATE-query uitvoeren op databank. Content-veld invullen als het niet bestaat. --> TODO EERD
-        3. Commit + close.
-        """
-
-
-
-
     def adding_Content(ondnr):
-        filename = ondnr + ".txt"
-        if filename not in os.listdir(vgv.__CONTENTS_PATH__):
-            raise Exception('File not found.')
-        else:
-
-            wsr = WebScraperRepo()
-
-            try:
-                content = wsr.readContents(filename)
-            except:
-                raise Exception('Failed to read data from file.')
-            
-            """
-            
-            """
-            try:
-                wsr.contents_To_Database(ondnr, content)
-            except:
-                raise Exception('Failed to send data to database.')
+        webcontents = FileController().read_Web_Contents
 
 
-            """
-            Check if data has been sent to database.
-            If so --> delete file to make sure storage doesn't get too hefty.
-            """
-            wsr.deleteContents(filename)
 
             
 
