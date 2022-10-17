@@ -40,7 +40,7 @@ class KMO_Repo():
     verplichting --> zelfde formaat als in de prioriteitenlijst
     RETURN: Pandas Dataframe.
     """
-    def read_CSV():
+    def read_CSV(self):
         if len(os.listdir(vgv.__STORAGE__)) != 0:
             for file in glob.glob('*.csv'):
                 return pd.read_csv(file=file)
@@ -50,7 +50,7 @@ class KMO_Repo():
     """
     CSV Importeren
     """
-    def KMO_toevoegen(dataframe):
+    def KMO_toevoegen(self, dataframe):
         pass
 
 

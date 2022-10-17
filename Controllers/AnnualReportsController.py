@@ -1,6 +1,4 @@
 import os
-from googlesearch import *
-from matplotlib.pyplot import text
 import pandas as pd
 import time
 from selenium import webdriver
@@ -84,31 +82,6 @@ class NBBScraper():
   """
   TODO
   """
-  def add_nbb_contents():
-
-    from DatabaseTools.AnnualReports_Repository import AnnualReportsRepo
-    
-    AnnualReportsRepo().add_NBB_PDF()
-    AnnualReportsRepo().add_NBB_PDF()
-
-
-
-  """
-  nummers = findCompanyNr()
-  teller = 0
-
-  print(len(nummers))
-
-  for nr in nummers:
-    if teller > 0 and teller < 5000:
-      scrapeteInfo = download_pdf(nr.replace(" ", ""))
-      time.sleep(1) # Om zeker te zijn dat de file gedownload is alvorens we ze gaan verplaatsen, anders verplaatsen we een verkeerde.
-
-      print(f'{nr} bekeken')
-
-      #move_file()
-      #delete_file() # Uncomment dit om ruimte te besparen op je HDD, maar zorg dat je eerst scrapet.
-      print(teller)
-    
-    teller += 1
-  """
+  def add_nbb_contents(repo):
+    repo.add_NBB_PDF()
+    repo.add_NBB_PDF()

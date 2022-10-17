@@ -5,10 +5,6 @@ from sqlalchemy.ext.declarative import declarative_base
 import pandas as pd
 import glob, os
 
-from DatabaseTools import ConnectionController
-from DatabaseTools.ConnectionController import Connection as conn
-from ScrapingTools.FileController import FileController
-from Storage.Constant_Variables import VGV as vgv
 
 class WebScraperRepo():
 
@@ -25,7 +21,8 @@ class WebScraperRepo():
         2.3. Commit + close.
     """
     def adding_Content(ondnr):
-        webcontents = FileController().read_Web_Contents
+        pass
+        #webcontents = fc.read_Web_Contents()
 
 
 

@@ -1,4 +1,4 @@
-from ScrapingTools.FileController import FileController
+#from Repositories.FileController import FileController as fc
 #from ConnectionController import Connection as conn
 
 class AnnualReportsRepo():
@@ -11,14 +11,12 @@ class AnnualReportsRepo():
     Python-code: De nodige info uit het csv-bestand ophalen. 
     SQL-query: De rij (afhankelijk van het ondernemingsnummer) wordt dan geüpdatet.
     """
-    def add_NBB_CSV():
-        csv_contents = fc.read_NNB_CSV()
+    def add_NBB_CSV(self, fileRepo):
+        csv_contents = fileRepo.read_NNB_CSV()
 
     """
     TODO
     De plaintekst met een SQL-query gaan invoeren in de databank (afhankelijk van het ondernemingsnummer).
     """
-    def add_NBB_PDF():
-        pdf_contents = fc.read_NBB_PDF()
-
-fc = FileController()
+    def add_NBB_PDF(self, fileRepo):
+        pdf_contents = fileRepo.read_NBB_PDF()

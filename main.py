@@ -2,9 +2,16 @@ from pandas import array
 from tqdm import tqdm
 import time
 
-from ScrapingTools.AnnualReportsController import NBBScraper as nbs
-from ScrapingTools.FileController import FileController as fcs
-from ScrapingTools.WebScraperController import WebScraper as wbs
+from Controllers.AnnualReportsController import NBBScraper as nbs
+from Controllers.WebScraperController import WebScraper as wbs
+
+"""
+repo objecten
+"""
+from Controllers.Repositories.WebScraper_Repository import WebScraperRepo as wsr
+from Controllers.Repositories.ConnectionController import Connection as conn
+from Controllers.Repositories.AnnualReports_Repository import AnnualReportsRepo as arr
+from Controllers.Repositories.FileController import FileController as fcs
 
 
 class MainApp():
@@ -43,15 +50,15 @@ class MainApp():
         SQL-queries --> repo functies
         """
 
-        wbs.addWebcontentsToDatabase()
-        nbs.add_nbb_contents()
+        ##wbs.addWebcontentsToDatabase(wsr)
+        ##nbs.add_nbb_contents(arr)
 
 
         """
         TODO
         Moving all scrapete files to the backup folder.
         """
-        fcs.move_files()
+        #fcs.move_files()
 
 
     def updateAll(array):

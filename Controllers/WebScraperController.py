@@ -32,15 +32,11 @@ import re
 # Opmerking: installeer hiervoor de laatste versie van 'ipywidgets'. Gebruik hiervoor m.a.w. 'pip install ipywidgets'.
 from tqdm import tqdm
 
-from DatabaseTools.WebScraper_Repository import WebScraperRepo
-
-# from Storage import Constant_Variables
-
 """
 END IMPORTS
 """
 
-contentDIR = 'ScrapingTools/contents/'
+contentDIR = 'Storage/'
 
 """
 
@@ -225,18 +221,13 @@ class WebScraper():
     """
     TODO
     """
-    def addWebcontentsToDatabase():
-        WebScraperRepo.adding_Content()
+    def addWebcontentsToDatabase(repo):
+        repo.adding_Content()
 
 
 
 """
 TODO --> niet langer in gebruik
-
-#################################################################################################################
-###########################                 Applicatie             ##############################################
-#################################################################################################################
-
 
 tekstbestandUitschrijven()
 
