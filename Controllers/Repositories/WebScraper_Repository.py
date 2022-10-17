@@ -20,7 +20,7 @@ class WebScraperRepo():
         2.2. UPDATE-query uitvoeren op databank. Content-veld invullen als het niet bestaat. --> EERD
         2.3. Commit + close.
     """
-    def adding_Content(ondnr):
+    def adding_Content():
         pass
         #webcontents = fc.read_Web_Contents()
 

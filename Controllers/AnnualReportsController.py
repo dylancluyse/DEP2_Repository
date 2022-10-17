@@ -32,6 +32,13 @@ class NBBScraper():
     return ls
   """
 
+  """
+  TODO probleem wanneer je de repo wilt aanspreken.
+  """
+  def add_nbb_contents(arr):
+      #arr.add_nbb_contents()
+      pass
+
   def download_nbb(companyNr):
     br = webdriver.Chrome(executable_path='./chromedriver.exe')
     br.get(url)
@@ -77,11 +84,4 @@ class NBBScraper():
 
     finally:
       br.quit()
-
-
-  """
-  TODO
-  """
-  def add_nbb_contents(repo):
-    repo.add_NBB_PDF()
-    repo.add_NBB_PDF()
+    

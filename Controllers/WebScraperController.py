@@ -221,8 +221,8 @@ class WebScraper():
     """
     TODO
     """
-    def addWebcontentsToDatabase(repo):
-        repo.adding_Content()
+    def addWebcontentsToDatabase(wsr):
+        wsr.adding_Content()
 
 
 

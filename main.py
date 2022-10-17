@@ -24,6 +24,7 @@ class MainApp():
         3. PDF omzetten. 
         4. Content PDF naar databank.
         """
+
         nbs.download_nbb(companyNr)
         
 
@@ -49,16 +50,15 @@ class MainApp():
         TODO
         SQL-queries --> repo functies
         """
-
-        ##wbs.addWebcontentsToDatabase(wsr)
-        ##nbs.add_nbb_contents(arr)
+        wbs.addWebcontentsToDatabase(wsr)
+        nbs.add_nbb_contents(arr)
 
 
         """
         TODO
         Moving all scrapete files to the backup folder.
         """
-        #fcs.move_files()
+        fcs.move_files()
 
 
     def updateAll(array):
@@ -68,7 +68,6 @@ class MainApp():
         """
         1. SQL-query uitvoeren dat alle jaarverslagen van het volgende jaar gaat opzoeken.
         ONDNR + site nodig.
-
         2. Rijen opslaan onder waarde. row[0] = ondnr / row[1] = site
         """
 
@@ -76,12 +75,9 @@ class MainApp():
 
         if len(rows) != 0:
             for row in tqdm(rows):
-                
                 compNr = row[0]
                 site = row[1]
-
                 app.updateOne(compNr, site)
-
 
 
 MainApp.updateOne('0431 852 314', 'https://www.unizo.be/')
