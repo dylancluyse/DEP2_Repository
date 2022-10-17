@@ -46,13 +46,15 @@ class FileController():
     Check toevoegen waarbij er wordt gekeken naar de drie subdirs: csv, txt en pdf. Nu wordt er enkel gekeken naar de backupfolder.
     Ervoor zorgen dat alle te downloaden bestanden naar de /Storage folder worden gedownload.
     """
-    def move_files():
-       
+    def move_files(companynr):
         if not os.path.isdir(BACKUPFOLDER):
             for elem in ['/csv', '/txt', '/pdf']:
                 os.makedirs(BACKUPFOLDER+elem)
 
+        
+
         for file_to_move in os.listdir(SCRAPED_FILES):
             arr_types = ['txt', 'csv', 'pdf']
             if str(file_to_move[-3:]) in arr_types:
-                shutil.move(SCRAPED_FILES + file_to_move, BACKUPFOLDER +'/'+file_to_move[-3:])                
+                filename = str(companynr).replace(' ','')+'.'+file_to_move[-3:]
+                shutil.move(SCRAPED_FILES + file_to_move, BACKUPFOLDER +'/'+file_to_move[-3:]+'/'+filename)                

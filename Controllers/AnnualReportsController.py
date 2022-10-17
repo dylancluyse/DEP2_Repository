@@ -40,7 +40,14 @@ class NBBScraper():
       pass
 
   def download_nbb(companyNr):
-    br = webdriver.Chrome(executable_path='./chromedriver.exe')
+    options = webdriver.ChromeOptions()
+    dirToPrint=os.getcwd()+'\Storage'
+    prefs={"download.default_directory":dirToPrint}
+    options.add_experimental_option("prefs",prefs)
+        
+    br = webdriver.Chrome(executable_path='./chromedriver.exe', options=options)
+    
+
     br.get(url)
 
     try:

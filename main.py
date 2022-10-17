@@ -27,7 +27,6 @@ class MainApp():
 
         nbs.download_nbb(companyNr)
         
-
         """
         TODO WebScraper
         1. Uitschrijven naar tekstbestand. (eventueel weglaten)
@@ -58,7 +57,7 @@ class MainApp():
         TODO
         Moving all scrapete files to the backup folder.
         """
-        fcs.move_files()
+        fcs.move_files(companyNr)
 
 
     def updateAll(array):
