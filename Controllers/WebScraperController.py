@@ -115,10 +115,6 @@ class WebScraper():
             path = contentDIR
             file = naam + '.txt'
 
-            print(path + file)
-
-            # print(file)
-
             # sommige tekens kunnen niet in een tekstbestand worden opgeslaan
             # speciale tekens verwijderen
             gold = re.sub('[^a-zA-Z0-9 \n\.]', '', gold)
@@ -165,7 +161,7 @@ class WebScraper():
 
 
     """
-    The scraper.
+    The one and only.
     """
     def siteScraper(adres, og, ondnr, arr=set(), visited=set()):
         try:
@@ -173,7 +169,6 @@ class WebScraper():
             # Resultaten opslaan in een tekstbestand;
             if len(arr) == len(visited) and len(visited) != 0:
                 naam = og.split('.')[1]
-                #print(f'Alles doorlopen van site {naam}')
             elif len(visited) > 20:
                 pass
             else:
@@ -210,12 +205,10 @@ class WebScraper():
                 #Volgende site doorlopen
                 for site in arr:
                     if site not in visited:                
-                        #print(f'Starten met: {site}')
                         WebScraper.siteScraper(site, og, ondnr, arr, visited)
                         
         except:
             pass
-            print(f"Site '{adres}' failed")
 
 
     """

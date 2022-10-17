@@ -17,6 +17,7 @@ from Controllers.Repositories.FileController import FileController as fcs
 class MainApp():
 
     def updateOne(companyNr, site):
+
         """
         TODO PDF
         1. PDF downloaden.
@@ -24,20 +25,18 @@ class MainApp():
         3. PDF omzetten. 
         4. Content PDF naar databank.
         """
-
         nbs.download_nbb(companyNr)
-        
+
         """
         TODO WebScraper
-        1. Uitschrijven naar tekstbestand. (eventueel weglaten)
-        2. Site scrapen.
-        3. Log schrijven naar tekstbestand.
-        4. Webcontents naar databank.
-        5. NBB (PDF + CSV) info naar databank.
+        (1. Uitschrijven naar tekstbestand. (eventueel weglaten))
+        1. Site scrapen.
+        2. Log schrijven naar tekstbestand.
+        3. Webcontents naar databank.
+        4. NBB (PDF + CSV) info naar databank.
         """
-
-        wbs.tekstbestandUitschrijven()
-        time.sleep(1)
+        #wbs.tekstbestandUitschrijven()
+        #time.sleep(1)
 
         wbs.siteScraper(site, site, companyNr, set(), set())
         time.sleep(1)

@@ -3,8 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 class Connection():
-    """
-    pg_engine = create_engine('postgresql://postgres:DEPgroep1@vichogent.be:40032')
+    pg_engine = create_engine('postgresql://postgres:DEPgroep1@vichogent.be:40033/depdatabase')
     pg_conn = pg_engine.connect()
     metadata = MetaData(pg_engine)
 
@@ -14,5 +13,3 @@ class Connection():
     __engine__ = pg_engine
     __conn__ = pg_conn
     __Base__ = Base
-    """
-    pass
