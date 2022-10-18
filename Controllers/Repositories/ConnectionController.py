@@ -1,15 +1,7 @@
-from sqlalchemy import create_engine, func, Table, MetaData, desc
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
+from pymysql import Connect
+import pyodbc, psycopg2
 
+#pg_engine = create_engine('postgresql://postgres:DEPgroep1@vichogent.be:40033/testdb')
 class Connection():
-    pg_engine = create_engine('postgresql://postgres:DEPgroep1@vichogent.be:40033/depdatabase')
-    pg_conn = pg_engine.connect()
-    metadata = MetaData(pg_engine)
-
-    Base = declarative_base(pg_engine)
-    Base.metadata.reflect(pg_engine)
-
-    __engine__ = pg_engine
-    __conn__ = pg_conn
-    __Base__ = Base
+    def get_conn():
+        return psycopg2.connect(database="testdb", user="postgres", password="DEPgroep1", host="vichogent.be", port="40033")

@@ -3,6 +3,7 @@ import os
 import shutil
 import pandas as pd
 from PyPDF2 import PdfReader
+import re
 
 BACKUPFOLDER="Storage/backup"
 SCRAPED_FILES="Storage/"
@@ -11,22 +12,22 @@ class FileController():
     """
     Eventueel enkel meegeven als parameter?
     """
-    def read_NNB_CSV(self):
+    def read_NNB_CSV():
         for file in os.listdir(SCRAPED_FILES):
             if file.endswith('.csv'):
-                return pd.read_csv(file)
+                return pd.read_csv(SCRAPED_FILES+'/'+file)
 
     """
     Opgehalen jaarverslag gaan teruggeven als plaintekst.
     """
-    def read_NBB_PDF(self):
+    def read_NBB_PDF():
         for file in os.listdir(SCRAPED_FILES):
             if file.endswith('.pdf'):
-                reader = PdfReader("example.pdf")
+                reader = PdfReader(SCRAPED_FILES+'/'+file)
                 text = ""
                 for page in reader.pages:
                     text += page.extract_text() + "\n"
-                return text
+                return re.sub('\W+',' ', text)
 
     """
     Tekstbestand inlezen.

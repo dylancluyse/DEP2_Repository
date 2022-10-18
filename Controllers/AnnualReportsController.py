@@ -16,6 +16,8 @@ import PyPDF2
 from bs4 import BeautifulSoup
 import requests as req
 
+from Controllers.Repositories.AnnualReports_Repository import AnnualReportsRepo as arr
+
 # ################# #
 # Global variables #
 # ################ #
@@ -25,19 +27,11 @@ url = 'https://consult.cbso.nbb.be/'
 class NBBScraper():
   
   """
-  def findCompanyNr():
-    file = 'ScrapingTools/csv/all.csv'
-    df = pd.read_csv(file)
-    ls = df['Ondernemingsnummer'].tolist()
-    return ls
+  TODO ...
   """
-
-  """
-  TODO probleem wanneer je de repo wilt aanspreken.
-  """
-  def add_nbb_contents(arr):
-      #arr.add_nbb_contents()
-      pass
+  def add_nbb_contents(compnr):
+      arr.add_NBB_CSV()
+      arr.add_NBB_PDF(companyNr=compnr)
 
   def download_nbb(companyNr):
     options = webdriver.ChromeOptions()

@@ -16,7 +16,7 @@ from Controllers.Repositories.FileController import FileController as fcs
 
 class MainApp():
 
-    def updateOne(companyNr, site):
+    def updateOne(self, companyNr, site):
 
         """
         TODO PDF
@@ -36,20 +36,20 @@ class MainApp():
         4. NBB (PDF + CSV) info naar databank.
         """
         #wbs.tekstbestandUitschrijven()
-        #time.sleep(1)
-
-        wbs.siteScraper(site, site, companyNr, set(), set())
         time.sleep(1)
 
-        wbs.logScraper(site)
+        #wbs.siteScraper(site, site, companyNr, set(), set())
+        time.sleep(1)
+
+        #wbs.logScraper(site)
         time.sleep(1)
 
         """
         TODO
         SQL-queries --> repo functies
         """
-        wbs.addWebcontentsToDatabase(wsr)
-        nbs.add_nbb_contents(arr)
+        #wbs.addWebcontentsToDatabase(wsr)
+        nbs.add_nbb_contents(compnr=companyNr)
 
 
         """
@@ -78,4 +78,9 @@ class MainApp():
                 app.updateOne(compNr, site)
 
 
-MainApp.updateOne('0431 852 314', 'https://www.unizo.be/')
+#MainApp.updateOne('0431 852 314', 'https://www.unizo.be/')
+
+
+MainApp.updateAll(
+    [['0431852314', 'https://www.unizo.be/'], ['0404935507', 'www.ibrefinery.be'], ['0404534540', 'www.ibrefinery.be']]
+)
