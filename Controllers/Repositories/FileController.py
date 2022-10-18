@@ -32,11 +32,11 @@ class FileController():
     """
     Tekstbestand inlezen.
     """
-    def read_Web_Contents(self):
+    def read_Web_Contents():
         for file in os.listdir(SCRAPED_FILES):
             if file.endswith('.txt'):
-                with open(file, 'r') as file:
-                    return file.read().replace('\n', '')
+                with open(SCRAPED_FILES + '/' + file, 'r') as file:
+                    return re.sub('\W+',' ', file.read().replace('\n', ''))
 
 
     """

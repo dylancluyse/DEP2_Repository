@@ -160,3 +160,12 @@ class AnnualReportsRepo():
             db_conn.commit()
             cursor.close()
 
+            cursor = db_conn.cursor()
+            cursor.execute(f"""
+                UPDATE "Balans"
+                SET content_nbb_report = CAST('{pdf_contents}' as Text)
+                WHERE bvd_id = 'BE{companyNr}';
+            """)
+            db_conn.commit()
+            cursor.close()
+

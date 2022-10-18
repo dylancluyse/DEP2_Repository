@@ -32,6 +32,8 @@ import re
 # Opmerking: installeer hiervoor de laatste versie van 'ipywidgets'. Gebruik hiervoor m.a.w. 'pip install ipywidgets'.
 from tqdm import tqdm
 
+from Controllers.Repositories.WebScraper_Repository import WebScraperRepo as wsr
+
 """
 END IMPORTS
 """
@@ -214,8 +216,8 @@ class WebScraper():
     """
     TODO
     """
-    def addWebcontentsToDatabase(wsr):
-        wsr.adding_Content()
+    def addWebcontentsToDatabase(compnr, email):
+        wsr.adding_Content(companynr=compnr, email=email)
 
 
 

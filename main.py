@@ -35,20 +35,20 @@ class MainApp():
         3. Webcontents naar databank.
         4. NBB (PDF + CSV) info naar databank.
         """
-        #wbs.tekstbestandUitschrijven()
+        wbs.tekstbestandUitschrijven()
         time.sleep(1)
 
-        #wbs.siteScraper(site, site, companyNr, set(), set())
+        wbs.siteScraper(site, site, companyNr, set(), set())
         time.sleep(1)
 
-        #wbs.logScraper(site)
+        wbs.logScraper(site)
         time.sleep(1)
 
         """
         TODO
         SQL-queries --> repo functies
         """
-        #wbs.addWebcontentsToDatabase(wsr)
+        wbs.addWebcontentsToDatabase(compnr=companyNr, email=site)
         nbs.add_nbb_contents(compnr=companyNr)
 
 
@@ -82,5 +82,5 @@ class MainApp():
 
 
 MainApp.updateAll(
-    [['0431852314', 'https://www.unizo.be/'], ['0404935507', 'www.ibrefinery.be'], ['0404534540', 'www.ibrefinery.be']]
+    [['0431852314', 'https://www.unizo.be/'], ['0404935507', 'https://www.ibrefinery.be'], ['0404534540', 'https://www.ibrefinery.be']]
 )
