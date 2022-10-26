@@ -1,20 +1,47 @@
+from datetime import date
 from pandas import array
 from tqdm import tqdm
 import time
 
+import datetime
+
 from Controllers.AnnualReportsController import NBBScraper as nbs
 from Controllers.WebScraperController import WebScraper as wbs
+from Controllers.Repositories.ConnectionController import Connection as conn
+
+import pandas as pd
 
 """
 repo objecten
 """
-from Controllers.Repositories.WebScraper_Repository import WebScraperRepo as wsr
-from Controllers.Repositories.ConnectionController import Connection as conn
-from Controllers.Repositories.AnnualReports_Repository import AnnualReportsRepo as arr
 from Controllers.Repositories.FileController import FileController as fcs
+
+CURRENTYEAR = datetime.datetime.now().year
 
 
 class MainApp():
+
+    def get_companies_sites_excel():
+        pd.read_excel(...)
+
+
+    """
+    TODO: Kijken welke bedrijven er een gedateerd jaarverslag hebben.
+
+    Nu wordt een functie YEAR() aangesproken. Met een index misschien beter een extra kolom?
+
+    """
+    def get_companies_db():
+        db_conn = conn.get_conn()
+        cursor = db_conn.cursor()
+
+        cursor.execute(f"""
+        SELECT ondernemingsnummer, website
+        FROM "KMO" k
+        INNER JOIN "Balans" b on k.ondernemingsnummer = b.ondernemingsnummer
+        where date_nbb_report != YEAR({CURRENTYEAR})
+        """)
+        
 
     def updateOne(self, companyNr, site):
 
@@ -35,14 +62,14 @@ class MainApp():
         3. Webcontents naar databank.
         4. NBB (PDF + CSV) info naar databank.
         """
-        wbs.tekstbestandUitschrijven()
-        time.sleep(1)
+        #wbs.tekstbestandUitschrijven()
+        #time.sleep(1)
 
-        wbs.siteScraper(site, site, companyNr, set(), set())
-        time.sleep(1)
+        #wbs.siteScraper(site, site, companyNr, set(), set())
+        #time.sleep(1)
 
-        wbs.logScraper(site)
-        time.sleep(1)
+        #wbs.logScraper(site)
+        #time.sleep(1)
 
         """
         TODO
@@ -84,3 +111,5 @@ class MainApp():
 MainApp.updateAll(
     [['0431852314', 'https://www.unizo.be/'], ['0404935507', 'https://www.ibrefinery.be'], ['0404534540', 'https://www.ibrefinery.be']]
 )
+
+
