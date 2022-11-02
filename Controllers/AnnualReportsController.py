@@ -29,9 +29,9 @@ class NBBScraper():
   """
   TODO ...
   """
-  def add_nbb_contents(compnr):
+  def add_nbb_contents(compnr, companyname):
       arr.add_NBB_CSV()
-      arr.add_NBB_PDF(companyNr=compnr)
+      arr.add_NBB_PDF(companyNr=compnr, companyname=companyname)
 
   def download_nbb(companyNr):
     options = webdriver.ChromeOptions()

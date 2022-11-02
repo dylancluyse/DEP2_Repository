@@ -19,171 +19,177 @@ class AnnualReportsRepo():
     """
     def add_NBB_CSV():
         csv_contents = fc.read_NNB_CSV()
-        d = dict(zip(csv_contents.iloc[:, 0], csv_contents.iloc[:, 1]))
+
+        try:
+            contents1=csv_contents.iloc[:, 0]
+            contents2=csv_contents.iloc[:, 1]
+
+            d = dict(zip(contents1, contents2))
         
-        """
-        10/49 --> Balanstotaal
-        9145 --> Netto toegevoegde waarde
-        6.10 --> omzet
-        """
-        arr_types = ['Language', 'Entity name', 'Entity number', 'Accounting period end date', 'Legal form', '10/49', '9145', '70', '12011', '12012', '12021', '12022', '12111', '12112', '12121', '12122']
-        output = []
-        for elem in arr_types:
-            try:
-                var=d[elem]
-                output.append(var)
-            except:
-                var=0
-                output.append(var)
+            """
+            10/49 --> Balanstotaal
+            9145 --> Netto toegevoegde waarde
+            6.10 --> omzet
+            """
+            arr_types = ['Language', 'Entity name', 'Entity number', 'Accounting period end date', 'Legal form', '10/49', '9145', '70', '1051']
+            output = []
+            for elem in arr_types:
+                try:
+                    var=d[elem]
+                    output.append(var)
+                except:
+                    var=0
+                    output.append(var)
 
-        """
-        TODO
-        PostgreSQL-queries schrijven:
-        * Toevoegen aan balanstotaal
-        * Toevoegen aan KMO
-        """
-        db_conn = conn.get_conn()
+        except:
+            """LOG TOEVOEGEN"""
+            print("NO CSV FOUND")
 
 
-        companynr=output[2]
 
+        try:
+            """
+            TODO
+            PostgreSQL-queries schrijven:
+            * Toevoegen aan balanstotaal
+            * Toevoegen aan KMO
+            """
+            db_conn = conn.get_conn()
+            companynr=output[2]
+            companyname=output[1].replace("'","")
 
-        """
-        KMO-TABLE
-        Hebben we al gegevens van dit ondernemingsnummer?
-            -- Zo ja --> rij updaten.
-            -- Zo nee --> rij aanmaken en dan de cellen updaten.
-        """
-        cursor = db_conn.cursor()
-        cursor.execute(f'SELECT * FROM "KMO" WHERE ondernemingsnummer = {companynr};')
-
-        rows_id_exist = cursor.fetchall()
-        cursor.close()
-
-        if len(rows_id_exist) != 0:
+            """
+            KMO-TABLE
+            Hebben we al gegevens van dit ondernemingsnummer?
+                -- Zo ja --> rij updaten.
+                -- Zo nee --> rij aanmaken en dan de cellen updaten.
+            """
             cursor = db_conn.cursor()
-            cursor.execute(f"""
-            UPDATE "KMO"
-            SET naam='{output[1]}', beursnotatie='{output[4]}'
-            WHERE ondernemingsnummer = {output[2]}
-            """)
+            cursor.execute(f'SELECT * FROM "KMO" WHERE ondernemingsnummer = {companynr};')
 
-            print(f"""
-            65 UPDATE "KMO"
-            SET naam='{output[1]}', beursnotatie='{output[4]}'
-            WHERE ondernemingsnummer = {output[2]}
-            """)
+            print(f'SELECT * FROM "KMO" WHERE ondernemingsnummer = {companynr};')
 
-            db_conn.commit()
-            cursor.close()
-        else:
-            cursor = db_conn.cursor()
-            cursor.execute(f"""
-            INSERT INTO "KMO" (ondernemingsnummer) 
-            VALUES (0{output[2]});
-            """)
-
-            print(f"""
-            81 INSERT INTO "KMO" (ondernemingsnummer) 
-            VALUES (0{output[2]});
-            """)
-
-            db_conn.commit()
+            rows_id_exist = cursor.fetchall()
             cursor.close()
 
-            cursor = db_conn.cursor()
-            cursor.execute(f"""
-            UPDATE "KMO"
-            SET naam='{output[1]}', beursnotatie='{output[4]}'
-            WHERE ondernemingsnummer = {output[2]}
-            """)
+            print(output[8])
 
-            print(f"""
-            95 UPDATE "KMO"
-            SET naam='{output[1]}', beursnotatie='{output[4]}'
-            WHERE ondernemingsnummer = {output[2]}
-            """)
-
-            db_conn.commit()
-            cursor.close()
-    
-        """
-        BALANS-TABLE
-        """
-        cursor = db_conn.cursor()
-        cursor.execute(f"""SELECT * FROM "Balans" WHERE ondernemingsnummer = '{output[2]}';""")
-
-        print(f"""113 SELECT * FROM "Balans" WHERE ondernemingsnummer = '{output[2]}';""")
-
-        rows_id_exist = cursor.fetchall()
-
-
-        cursor.close()
-
-        if len(rows_id_exist) != 0:
+            if len(rows_id_exist) != 0:
                 cursor = db_conn.cursor()
-                cursor.execute(f"""
-                    UPDATE "Balans"
-                    SET language_report = '{output[0]}', omzet = {output[7]}, balanstotaal = {output[5]}, net_add_val = {output[6]}, date_nbb_report = '{output[3]}', ondernemingsnummer = {output[2]}
-                    WHERE ondernemingsnummer = '{output[2]}';
-                """)
-
-                print(f"""
-                134 UPDATE "Balans"
-                    SET language_report = '{output[0]}', omzet = {output[7]}, balanstotaal = {output[5]}, net_add_val = {output[6]}, date_nbb_report = {output[3]}, ondernemingsnummer = {output[2]}
-                    WHERE ondernemingsnummer = '{output[2]}';
-                """)
-
-                db_conn.commit()
-                cursor.close()
-        else:
-                cursor = db_conn.cursor()
-                cursor.execute(f"""
-                    INSERT INTO "Balans"
-                    (ondernemingsnummer) VALUES ('0{output[2]}');
-                """)
-
-                print(f"""
-                151 INSERT INTO "Balans"
-                    (ondernemingsnummer) VALUES ('{output[2]}');
-                """)
-                db_conn.commit()
-                cursor.close()
-
-                cursor = db_conn.cursor()
-                cursor.execute(f"""
-                    UPDATE "Balans"
-                    SET language_report = '{output[0]}', omzet = {output[7]}, balanstotaal = {output[5]}, net_add_val = {output[6]}, date_nbb_report = {output[3]}, ondernemingsnummer = {output[2]}
-                    WHERE ondernemingsnummer = '{output[2]}';
-                """)
-
-                print(f"""
-                164 UPDATE "Balans"
-                    SET language_report = '{output[0]}', omzet = {output[7]}, balanstotaal = {output[5]}, net_add_val = {output[6]}, date_nbb_report = {output[3]}, ondernemingsnummer = {output[2]}
-                    WHERE ondernemingsnummer = '{output[2]}';
-                """)
-                db_conn.commit()
-                cursor.close()
                 
+                cursor.execute(f"""
+                UPDATE "KMO"
+                SET naam='{companyname}', vennootschap='{output[4]}', personeelsbestanden={output[8]}
+                WHERE ondernemingsnummer = {companynr}
+                """)
+
+                db_conn.commit()
+                cursor.close()
+            else:
+                cursor = db_conn.cursor()
+                cursor.execute(f"""
+                INSERT INTO "KMO" (ondernemingsnummer, naam, vennootschap, personeelsbestanden) 
+                VALUES ({companynr}, '{companyname}', '{output[4]}', {output[8]});
+                """)
+
+                db_conn.commit()
+                cursor.close()
+        
+            """
+            BALANS-TABLE
+            """
+            cursor = db_conn.cursor()
+            cursor.execute(f"""SELECT * FROM "Balans" WHERE ondernemingsnummer = '{companynr}';""")
+
+            rows_id_exist = cursor.fetchall()
+
+
+            cursor.close()
+
+            if len(rows_id_exist) != 0:
+                    cursor = db_conn.cursor()
+                    cursor.execute(f"""
+                        UPDATE "Balans"
+                        SET language_report = '{output[0]}', omzet = {output[7]}, balanstotaal = {output[5]}, net_add_val = {output[6]}, date_nbb_report = '{output[3]}'
+                        WHERE ondernemingsnummer = '{companynr}';
+                    """)
+
+                    db_conn.commit()
+                    cursor.close()
+            else:
+                    cursor = db_conn.cursor()
+                    cursor.execute(f"""
+                        INSERT INTO "Balans"
+                        (ondernemingsnummer) VALUES ('{companynr}');
+                    """)
+
+                    db_conn.commit()
+                    cursor.close()
+
+                    cursor = db_conn.cursor()
+                    cursor.execute(f"""
+                        UPDATE "Balans"
+                        SET language_report = '{output[0]}', omzet = {output[7]}, balanstotaal = {output[5]}, net_add_val = {output[6]}, date_nbb_report = '{output[3]}'
+                        WHERE ondernemingsnummer = '{companynr}';
+                    """)
+
+                    db_conn.commit()
+                    cursor.close()
+        except:
+            """LOG TOEVOEGEN"""            
+            print("COULDNT APPEND CSV INFO")
         
 
     """
     TODO
     De plaintekst met een SQL-query gaan invoeren in de databank (afhankelijk van het ondernemingsnummer).
     """
-    def add_NBB_PDF(companyNr):
+    def add_NBB_PDF(companyNr, companyname):
         pdf_contents = fc.read_NBB_PDF()
-
-        print(companyNr)
        
         db_conn = conn.get_conn()
+
+        companyname = companyname.replace("'","")
+
+
+        """ 
+        KMO-TABLE
+        Hebben we al gegevens van dit ondernemingsnummer?
+        -- Zo ja --> rij updaten.
+        -- Zo nee --> rij aanmaken en dan de cellen updaten.
+        """
+        cursor = db_conn.cursor()
+        cursor.execute(f'SELECT * FROM "KMO" WHERE ondernemingsnummer = {companyNr}')
+
+        rows_id_exist = cursor.fetchall()
+        cursor.close()
+
+        if len(rows_id_exist) != 0:
+            cursor = db_conn.cursor()
+            cursor.execute(f"""
+            UPDATE "KMO"
+            SET naam='{companyname}'
+            WHERE ondernemingsnummer = {companyNr}
+            """)
+
+            db_conn.commit()
+            cursor.close()
+        else:
+            cursor = db_conn.cursor()
+            cursor.execute(f"""
+            INSERT INTO "KMO" (ondernemingsnummer, naam) 
+            VALUES (0{companyNr}, {companyname});
+            """)
+
+            db_conn.commit()
+            cursor.close()
+
+
         cursor = db_conn.cursor()
 
         cursor.execute(f"""SELECT * FROM "Balans" WHERE ondernemingsnummer = '0{companyNr}';""")
 
         rows_id_exist = cursor.fetchall()
-
-        print(rows_id_exist)
 
         cursor.close()
 
