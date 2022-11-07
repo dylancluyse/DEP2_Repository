@@ -9,6 +9,7 @@ import datetime
 from Controllers.AnnualReportsController import NBBScraper as nbs
 from Controllers.WebScraperController import WebScraper as wbs
 from Controllers.Repositories.ConnectionController import Connection as conn
+from Controllers.KMOcontroller import KMO_controller as kmocon
 
 import pandas as pd
 
@@ -116,4 +117,6 @@ class MainApp():
                 teller+=1
 
 
-MainApp.addAll(fcs.get_companies_sites_excel())
+#MainApp.addAll(fcs.get_companies_sites_excel())
+
+kmocon.add_locaties()

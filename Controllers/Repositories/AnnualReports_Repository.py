@@ -67,8 +67,6 @@ class AnnualReportsRepo():
             cursor = db_conn.cursor()
             cursor.execute(f'SELECT * FROM "KMO" WHERE ondernemingsnummer = {companynr};')
 
-            print(f'SELECT * FROM "KMO" WHERE ondernemingsnummer = {companynr};')
-
             rows_id_exist = cursor.fetchall()
             cursor.close()
 
