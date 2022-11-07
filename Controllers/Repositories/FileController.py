@@ -2,13 +2,29 @@ import enum
 import os
 import shutil
 import pandas as pd
-from PyPDF2 import PdfReader
+from tika import parser
 import re
 
 BACKUPFOLDER="Storage/backup"
 SCRAPED_FILES="Storage/"
+INPUT="Input/"
 
 class FileController():
+    def get_companies_sites_excel():
+        return pd.read_excel(INPUT+"kmo's_Vlaanderen_2021.xlsx", index_col=0, sheet_name="Lijst").iloc[: , [0, 6, 10]].to_numpy()
+
+
+    def stadOfGeenStad(gemeente):
+        if gemeente in ['ANTWERPEN', 'GENT', 'BRUGGE', 'CHARLEROI', 'NAMUR', 'MONS', 'HASSELT']:
+            return 1
+        else:
+            return 0
+
+    def get_locations_excel():
+        df = pd.read_excel("Input/kmo's_Vlaanderen_2021.xlsx", index_col=0, sheet_name="Lijst")
+        df["urban"] = df["Gemeente"].apply(FileController.stadOfGeenStad)
+        return df.iloc[: , [1, 6, 7, 8, 12]].to_numpy()
+
     """
     Eventueel enkel meegeven als parameter?
     """
@@ -23,11 +39,8 @@ class FileController():
     def read_NBB_PDF():
         for file in os.listdir(SCRAPED_FILES):
             if file.endswith('.pdf'):
-                reader = PdfReader(SCRAPED_FILES+'/'+file)
-                text = ""
-                for page in reader.pages:
-                    text += page.extract_text() + "\n"
-                return re.sub('\W+',' ', text)
+                raw = parser.from_file(SCRAPED_FILES+'/'+file)
+                return re.sub('\W+',' ', raw['content'])
 
     """
     Tekstbestand inlezen.
@@ -58,4 +71,4 @@ class FileController():
             arr_types = ['txt', 'csv', 'pdf']
             if str(file_to_move[-3:]) in arr_types:
                 filename = str(companynr).replace(' ','')+'.'+file_to_move[-3:]
-                shutil.move(SCRAPED_FILES + file_to_move, BACKUPFOLDER +'/'+file_to_move[-3:]+'/'+filename)                
+                shutil.move(SCRAPED_FILES + file_to_move, BACKUPFOLDER +'/'+file_to_move[-3:]+'/'+filename)
