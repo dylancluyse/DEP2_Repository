@@ -16,6 +16,8 @@ PyMySQL = "^1.0.2"
 pyodbc = "^4.0.34"
 psycopg2 = "^2.9.5"
 SQLAlchemy = "^1.4.42"
+tika = "^1.24"
+openpyxl = "^3.0.10"
 
 [tool.poetry.dev-dependencies]
 
