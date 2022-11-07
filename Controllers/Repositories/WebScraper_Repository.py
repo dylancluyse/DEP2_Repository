@@ -23,7 +23,8 @@ class WebScraperRepo():
         2.2. UPDATE-query uitvoeren op databank. Content-veld invullen als het niet bestaat. --> EERD
         2.3. Commit + close.
     """
-    def adding_Content(companynr, email):
+    
+    def adding_Content(companynr, website):
         webcontents = fc.read_Web_Contents()
         db_conn = conn.get_conn()
 
@@ -41,7 +42,7 @@ class WebScraperRepo():
             cursor = db_conn.cursor()
             cursor.execute(f"""
             UPDATE "KMO"
-            SET webcontents = '{webcontents}', email = '{email}'
+            SET webcontents = '{webcontents}', website = '{website}'
             WHERE ondernemingsnummer = {companynr}
             """)
             db_conn.commit()
@@ -59,15 +60,8 @@ class WebScraperRepo():
             cursor = db_conn.cursor()
             cursor.execute(f"""
             UPDATE "KMO"
-            SET webcontents = '{webcontents}', email = '{email}'
+            SET webcontents = '{webcontents}', website = '{website}'
             WHERE ondernemingsnummer = {companynr}
             """)
             db_conn.commit()
             cursor.close()
-
-
-
-
-            
-
-

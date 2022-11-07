@@ -216,36 +216,5 @@ class WebScraper():
     """
     TODO
     """
-    def addWebcontentsToDatabase(compnr, email):
-        wsr.adding_Content(companynr=compnr, email=email)
-
-
-
-"""
-TODO --> niet langer in gebruik
-
-tekstbestandUitschrijven()
-
-# Bij start tweemaal de site meegeven
-lines = open('ScrapingTools/csv/websites.csv', 'r').readlines()
-txt_file = open("logs/logScraper.txt", "r+")
-gescrapeteSites = txt_file.read()
-gescrapeteAdressen = gescrapeteSites.split('\n')
-txt_file.close()
-
-# De eerste lijn negeren.
-for site in tqdm(lines[1:]):
-    ondnr = site.split(',')[0].replace(' ', '').strip()
-    adres = 'https://' + site.split(',')[1].strip()
-
-    # Pas als een site volledig is gescrapet wordt deze verworpen.
-    if adres not in gescrapeteAdressen:
-        siteScraper(adres, adres, ondnr, set(), set())
-        time.sleep(1)
-        txt_file = open("logs/logScraper.txt", "a+")
-        txt_file.seek(0)
-        txt_file.write(str(adres))
-        txt_file.write('\n')
-        txt_file.close()
-
-"""
+    def addWebcontentsToDatabase(compnr, website, companyname):
+        wsr.adding_Content(companynr=compnr, website=website)
