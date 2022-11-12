@@ -87,7 +87,6 @@ class MainApp():
     def updateAll(array):
 
         app = MainApp()
-
         """
         1. SQL-query uitvoeren dat alle jaarverslagen van het volgende jaar gaat opzoeken.
         ONDNR + site nodig.
@@ -107,16 +106,14 @@ class MainApp():
         app = MainApp()
         rows = array
         if len(rows) != 0:
-            teller=0
             for row in tqdm(rows):
-                if (teller >= 1618):
-                    compname = row[0]
-                    compNr = row[1]
-                    site = row[2]
-                    app.updateOne(compNr, site, compname=compname)
-                teller+=1
-
+                compname = row[0]
+                compNr = row[1]
+                site = row[2]
+                app.updateOne(compNr, site, compname=compname)
 
 #MainApp.addAll(fcs.get_companies_sites_excel())
 
-kmocon.add_locaties()
+print(kmocon.get_ranking(200065765))
+
+

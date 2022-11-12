@@ -65,8 +65,6 @@ class FileController():
             for elem in ['/csv', '/txt', '/pdf']:
                 os.makedirs(BACKUPFOLDER+elem)
 
-        
-
         for file_to_move in os.listdir(SCRAPED_FILES):
             arr_types = ['txt', 'csv', 'pdf']
             if str(file_to_move[-3:]) in arr_types:

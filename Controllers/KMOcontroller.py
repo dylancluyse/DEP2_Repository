@@ -5,3 +5,6 @@ class KMO_controller():
 
     def add_locaties():
         repo.locatie_toevoegen(fc.get_locations_excel())
+
+    def get_ranking(compnr):
+        return repo.get_all_scores(compnr)
