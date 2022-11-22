@@ -13,17 +13,15 @@ class FileController():
     def get_companies_sites_excel():
         return pd.read_excel(INPUT+"kmo's_Vlaanderen_2021.xlsx", index_col=0, sheet_name="Lijst").iloc[: , [0, 6, 10]].to_numpy()
 
-
-    def stadOfGeenStad(gemeente):
-        if gemeente in ['ANTWERPEN', 'GENT', 'BRUGGE', 'CHARLEROI', 'NAMUR', 'MONS', 'HASSELT']:
-            return 1
-        else:
-            return 0
+    def get_company_nrs():
+        return pd.read_excel(INPUT+"kmo's_Vlaanderen_2021.xlsx", index_col=0, sheet_name="Lijst").iloc[: , [6]].to_numpy()
 
     def get_locations_excel():
         df = pd.read_excel("Input/kmo's_Vlaanderen_2021.xlsx", index_col=0, sheet_name="Lijst")
-        df["urban"] = df["Gemeente"].apply(FileController.stadOfGeenStad)
-        return df.iloc[: , [1, 6, 7, 8, 12]].to_numpy()
+        return df.iloc[: , [1, 6, 7, 8]].to_numpy()
+
+    def get_inwoners_csv():
+        return pd.read_csv("inwoners.csv").to_numpy()
 
     """
     Eventueel enkel meegeven als parameter?
@@ -70,3 +68,5 @@ class FileController():
             if str(file_to_move[-3:]) in arr_types:
                 filename = str(companynr).replace(' ','')+'.'+file_to_move[-3:]
                 shutil.move(SCRAPED_FILES + file_to_move, BACKUPFOLDER +'/'+file_to_move[-3:]+'/'+filename)
+
+        

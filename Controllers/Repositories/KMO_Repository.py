@@ -69,88 +69,82 @@ class KMO_Repo():
             except:
                 print(f"Niet gelukt!")
 
-    def replace_haakjes(zoekterm):
-        # vervang de , en spatie tussen de haakjes in naar een pijl
-        # verwijder de haakjes
-        pass
-
-    def get_search_string(cat):
+    def urbanisatieToevoegen(numpy_array):
+        df = pd.read_csv('gemeente_verstedelijking.csv')
+        df = df.to_numpy()
         db_conn = conn.get_conn()
         cursor = db_conn.cursor()
 
-        cursor.execute(f"""
-                select zoekterm_description
-                from "zoektermen"
-                where categorie_id = {cat}
-        """)
+        for row in df:
+            gemeente = str(row[0]).upper()
+            urbanisatie = row[1]
 
-        zoektermen = [list[0] for list in cursor.fetchall()]
+            print(f"""
+                update "Locatie"
+                set urban = '{urbanisatie}'
+                where gemeente = {gemeente}
+            """)
 
-        string = ""
-        for i, zt in enumerate(zoektermen):
-            if i == 0:
-                string += str(zt)
-            else:
-                string += " | " + str(zt)
+            cursor.execute(f"""
+                update "Locatie"
+                set urban = {urbanisatie}
+                where gemeente = '{gemeente}'
+            """)
+            db_conn.commit()
+        cursor.close()
 
-        return string
+    def oprichtingsjaarToevoegen():
+        """
+        VATS = pd.read_excel("C:/DEP2_Repository/Input/kmo's_Vlaanderen_2021.xlsx", index_col=0, sheet_name="Lijst").iloc[: , [6]].to_numpy()
+        f = open("test.csv", "a")
+        f2 = open("nonexistent.csv","a")
+        f.write("companyvat,startdate,")
+        for company_VAT in VATS:
+            for e in company_VAT:
+                e = str(e).replace(' ','')
+                f.write(f"{e},")
+                r = requests.get(f"https://www.btw-opzoeken.be/VATSearch/Search?KeyWord={e}&currentSite=www.btw-opzoeken.be")
+                
+                if(r.json()):
+                    startdate = r.json()[0].get("StartDate")
+                    f.write(f"{startdate}\n")
+                    print(f"{e}: {startdate}" )
+                else:
+                    f2.write(f"{e}")
+                    print(f"{e} is stopgezet")
+        f.close()
+        f2.close()
+        """
+        df = pd.read_csv('alle_oprichtingsjaren.csv')
+        df['startdate'] = pd.to_datetime(df['startdate'], format="%d-%m-%Y")
+        df = df.to_numpy()
 
-    
-    def get_score(cat, compnr):
         db_conn = conn.get_conn()
         cursor = db_conn.cursor()
 
-        search_string = KMO_Repo.get_search_string(cat)
+        for row in df:
+            companynr = row[0]
+            date = row[1]
+            cursor.execute(f"""
+                update "KMO"
+                set foundingdate = '{date}'
+                where ondernemingsnummer = {companynr}
+            """)
+            db_conn.commit()
+        cursor.close()
 
-        cursor.execute(f"""
-                select ts_rank(ts_document, query) as rank 
-	            from "KMO", to_tsquery('dutch','({search_string})') query 
-	            where query @@ ts_document and ondernemingsnummer = {compnr}
-        """)
-
-        resultweb = cursor.fetchone()
-
-        cursor.execute(f"""
-                select ts_rank(ts_document, query) as rank 
-	            from "Balans", to_tsquery('dutch','({search_string})') query 
-                where query @@ ts_document and ondernemingsnummer = {compnr}
-        """)
-
-        resultnbb = cursor.fetchone()
-
-        return sum(resultnbb) + sum(resultweb)
-
-    def calc_score(arr):
-        n = len(arr)
-        for i in range(n):
-            if(arr[i] > 0):
-                arr[i] = 1
-            else:
-                arr[i] = 0
-        return arr
-
-    def get_all_scores(compnr):
+    def beursnotatieToevoegen():
+        df = pd.read_csv('convertcsv.csv').to_numpy()
         db_conn = conn.get_conn()
         cursor = db_conn.cursor()
-        
-        cursor.execute(f"""
-            SELECT max(categorie_id) FROM categorie_zoektermen
-        """)
 
-        max = sum(cursor.fetchone())
-        
-        arr = []
+        for row in df:
+            ondnr = str(row[2]).replace('.','')
 
-        for i in range(1, max + 1):
-            try:
-                arr.append(KMO_Repo.get_score(i, compnr=compnr))
-            except:
-                arr.append(0)
-
-        E = KMO_Repo.calc_score(arr[0:4])
-        S = KMO_Repo.calc_score(arr[5:9])
-        G = KMO_Repo.calc_score(arr[9:11])
-
-        return [E, S, G]
-
-
+            cursor.execute(f"""
+            UPDATE "KMO" 
+            SET beursgenoteerd = true
+            where ondernemingsnummer = {ondnr}
+            """)
+            db_conn.commit()
+        cursor.close()
