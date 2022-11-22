@@ -10,6 +10,7 @@ from Controllers.AnnualReportsController import NBBScraper as nbs
 from Controllers.WebScraperController import WebScraper as wbs
 from Controllers.Repositories.ConnectionController import Connection as conn
 from Controllers.KMOcontroller import KMO_controller as kmocon
+from Controllers.ScoreController import ScoreController as score
 
 import pandas as pd
 
@@ -112,8 +113,9 @@ class MainApp():
                 site = row[2]
                 app.updateOne(compNr, site, compname=compname)
 
+    def updateScores():
+        score.updateScores()
+
+
 #MainApp.addAll(fcs.get_companies_sites_excel())
-
-print(kmocon.get_ranking(200065765))
-
-
+MainApp.updateScores()
