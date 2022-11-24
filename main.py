@@ -3,6 +3,8 @@ from pandas import array
 import numpy as np
 from tqdm import tqdm
 import time
+from dotenv import load_dotenv
+
 
 import datetime
 
@@ -19,6 +21,8 @@ repo objecten
 from Controllers.Repositories.FileController import FileController as fcs
 
 CURRENTYEAR = datetime.datetime.now().year
+
+load_dotenv()
 
 
 class MainApp():

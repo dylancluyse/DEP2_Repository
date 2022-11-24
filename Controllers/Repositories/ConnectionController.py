@@ -1,7 +1,8 @@
+import os
 from pymysql import Connect
 import pyodbc, psycopg2
+from config import config
 
-#pg_engine = create_engine('postgresql://postgres:DEPgroep1@vichogent.be:40033/testdb')
 class Connection():
     def get_conn():
-        return psycopg2.connect(database="depdatabase", user="postgres", password="DEPgroep1", host="vichogent.be", port="40033")
+        return psycopg2.connect(database=config.DATABASE, user=config.USER, password=config.PASSWORD, host=config.HOST, port=config.PORT)
