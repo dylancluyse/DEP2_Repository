@@ -20,6 +20,8 @@ tika = "^1.24"
 openpyxl = "^3.0.10"
 fastapi = "^0.87.0"
 uvicorn = "^0.19.0"
+pydantic = "^1.10.2"
+python-dotenv = "^0.21.0"
 
 [tool.poetry.dev-dependencies]
 

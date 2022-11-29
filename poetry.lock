@@ -551,7 +551,7 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "54ca917fa3fd33f2b8e901fb5fc765db47f031aea3dfbb89981910f76e9e9767"
+content-hash = "b4afe2afc2ee890d8579768d321228e11e2e0a7e0359dcf30e92e4a49bbdba26"
 
 [metadata.files]
 anyio = []
