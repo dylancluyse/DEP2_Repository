@@ -11,8 +11,10 @@ import fetcher from '../lib/fetcher'
 const BasicList = () => {
   const [companies, setCompanies] = useState('')
 
+  const id = "ik_ben_een_id"
+
   const { data: companyList, mutate: revalidateDomains, error } = useSWR(
-    `http://localhost:8000/foo`,
+    `http://localhost:8000/sector/${id}`,
     fetcher
   )
   if (error) return <div>failed to load</div>

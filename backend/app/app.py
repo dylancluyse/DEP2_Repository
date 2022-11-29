@@ -35,3 +35,16 @@ def read_item():
         }
     return {"data": out}
 
+@app.get("/sector/{company_id}")
+def read_item(company_id: str):
+    out = {
+            "items": [
+                {"id": 1, "name": company_id},
+                {"id": 2, "name": "Colruyt Groep"},
+                {"id": 3, "name": "Willy Naessens"},
+                {"id": 4, "name": "Matexi"},
+                {"id": 5, "name": "In The Pocket"},
+                {"id": 6, "name": "HOGENT"},
+            ]
+        }
+    return {"data": out}
