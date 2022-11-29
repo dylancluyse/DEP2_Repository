@@ -1,12 +1,19 @@
 import psycopg2
+import os
+from dotenv import load_dotenv
+from pathlib import Path
+
+dotenv_path = Path('Web_Application/.env')
+load_dotenv(dotenv_path=dotenv_path)
+
 
 #establishing the connection
 conn = psycopg2.connect(
-    host="vichogent.be",
-    database="depdatabase",
-    port = 40033,
-    user="postgres",
-    password="DaddyDylan123")
+    host=os.environ.get("host"),
+    database=os.environ.get("database"),
+    port = os.environ.get("port"),
+    user=os.environ.get("user"),
+    password=os.environ.get("password"))
 
 #Setting auto commit false
 conn.autocommit = True
