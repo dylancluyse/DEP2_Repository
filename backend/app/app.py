@@ -3,8 +3,22 @@ from typing import Union
 from time import sleep
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from repositories.sector import SectorRepository
+from repositories.company import CompanyRespository
+from database import DB
 
 app = FastAPI()
+app.state.db = DB()
+app.state.db.setup()
+app.state.company_repository = CompanyRespository(db=app.state.db)
+app.state.sector_repository = SectorRepository(db=app.state.db)
+
+
+x = app.state.company_repository.fetch_all_company_names()
+l = x[1][0]
+print(l)
+y = app.state.company_repository.fetch_company(l)
+print(y)
 
 origins = [ "http://localhost:3000", "https://localhost:3000", "https://localhost", "http://localhost" ]
 app.add_middleware(
@@ -38,23 +52,27 @@ def read_item():
 
 @app.get("/sector") # alle sectors
 def get_all_sectors():
-    return "todo"
+    sectors = app.state.sector_repository.fetch_sectors()
+    return {"data": sectors}
 
 @app.get("/sector/{sector_name}") # specifieke sectors
-def get_sector_by_name():
-    return "todo"
+def get_sector_by_name(sector_name: str):
+    sector = app.state.sector_repository.fetch_company_by_sector(sector_name)
+    return {"data": sector}
 
 @app.get("/company") # alle companies 
 def get_all_companies():
-    return "todo"
+    companylist = app.state.company_repository.fetch_all_company_names()
+    return {"data": companylist}
 
 @app.get("/company/{company_name}") # specifieke company
-def get_company_by_name():
-    return "todo"
+def get_company_by_name(company_name: str):
+    company = app.state.company_repository.fetch_company(company_name)
+    return {"data": company}
 
 
 @app.get("/sector/{company_id}")
-def read_item(company_id: str):
+def read_items(company_id: str):
     out = {
             "items": [
                 {"id": 1, "name": company_id},
