@@ -1,23 +1,22 @@
 """
 Vaak gebruikte variabelen.
 """
-from Storage.Constant_Variables import VGV as vgv
 import time
 
+from Storage.Constant_Variables import VGV as vgv
 
 """
 IMPORTS
 """
+import glob
+import os
 from turtle import pd
-from sqlalchemy import create_engine, func, Table, MetaData, desc
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
+
 import pandas as pd
-import glob, os
 
 """
-Ik verwijs naar een klasse die de verbinding met de databank aanmaakt. 
-Op deze manier vermijden we het constant hergebruiken van dezelfde lijnen code. 
+Ik verwijs naar een klasse die de verbinding met de databank aanmaakt.
+Op deze manier vermijden we het constant hergebruiken van dezelfde lijnen code.
 Ook moeten we de verbinding niet telkens op ieder bestand aanpassen.
 """
 from Controllers.Repositories.ConnectionController import Connection as conn
@@ -61,7 +60,7 @@ class KMO_Repo():
             if len(rows_id_exist) == 0:
 
                 cursor.execute(f"""
-                INSERT INTO "Locatie" (ondernemingsnummer, postcode, gemeente, adres, urban) 
+                INSERT INTO "Locatie" (ondernemingsnummer, postcode, gemeente, adres, urban)
                 VALUES ('{companynr}', '{postcode}', '{gemeente}', '{adres}', {urban});
                 """)
 

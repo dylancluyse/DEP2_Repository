@@ -32,7 +32,7 @@ export default function Home() {
   useEffect(() => {
     if (adding) setDisabled(true)
   }, [adding])
-  
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
@@ -90,9 +90,9 @@ export default function Home() {
             {adding ? <LoadingDots /> : 'search'}
           </button>
         </form>
-      
+
       </main>
-      
+
       <p>Sectoren</p>
       <div class="grid grid-flow-row-dense grid-cols-3 grid-rows-3 gap-10 text-gray-500 border-gray-300  ">
             <a href='http://localhost:3000/sector/sector1' className="bg-orange-100 w-100 p-8 m-5">sector1</a>

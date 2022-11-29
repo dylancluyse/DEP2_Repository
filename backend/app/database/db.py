@@ -1,6 +1,9 @@
 from typing import Any
-from config import config
+
 import psycopg2
+
+from app.config import config
+
 
 class DB():
     conn: Any
@@ -10,7 +13,6 @@ class DB():
             database=config.DATABASE,
             user=config.USER,
             password=config.PASSWORD,
-            host=config.HOST, 
+            host=config.HOST,
             port=config.PORT
         )
-

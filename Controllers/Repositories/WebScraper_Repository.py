@@ -1,9 +1,3 @@
-from turtle import pd
-from sqlalchemy import create_engine, func, Table, MetaData, desc
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-import pandas as pd
-import glob, os
 
 from Controllers.Repositories.ConnectionController import Connection as conn
 from Controllers.Repositories.FileController import FileController as fc
@@ -13,7 +7,7 @@ class WebScraperRepo():
 
     def __init__(self) -> None:
         pass
-    
+
     """
     Main-function for this repository. It will follow these steps:
     1. Check if there's a webcontents file and save the contents as a variable 'webcontents'.
@@ -23,7 +17,7 @@ class WebScraperRepo():
         2.2. UPDATE-query uitvoeren op databank. Content-veld invullen als het niet bestaat. --> EERD
         2.3. Commit + close.
     """
-    
+
     def adding_Content(companynr, website):
         webcontents = fc.read_Web_Contents()
         db_conn = conn.get_conn()
@@ -31,8 +25,8 @@ class WebScraperRepo():
         cursor = db_conn.cursor()
 
         cursor.execute(f"""
-        SELECT ondernemingsnummer 
-        FROM "KMO" 
+        SELECT ondernemingsnummer
+        FROM "KMO"
         WHERE ondernemingsnummer = {companynr};
         """)
 
@@ -51,7 +45,7 @@ class WebScraperRepo():
         else:
             cursor = db_conn.cursor()
             cursor.execute(f"""
-            INSERT INTO "KMO" (ondernemingsnummer) 
+            INSERT INTO "KMO" (ondernemingsnummer)
             VALUES ({companynr});
             """)
             db_conn.commit()

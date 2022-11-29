@@ -1,9 +1,9 @@
-import enum
 import os
+import re
 import shutil
+
 import pandas as pd
 from tika import parser
-import re
 
 BACKUPFOLDER="Storage/backup"
 SCRAPED_FILES="Storage/"
@@ -65,7 +65,7 @@ class FileController():
             for elem in ['/csv', '/txt', '/pdf']:
                 os.makedirs(BACKUPFOLDER+elem)
 
-        
+
 
         for file_to_move in os.listdir(SCRAPED_FILES):
             arr_types = ['txt', 'csv', 'pdf']

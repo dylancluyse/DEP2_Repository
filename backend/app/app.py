@@ -1,11 +1,9 @@
-from typing import Union
 
-from time import sleep
+from app.database import DB
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from repositories.sector import SectorRepository
-from repositories.company import CompanyRespository
-from database import DB
+from app.repositories.company import CompanyRespository
+from app.repositories.sector import SectorRepository
 
 app = FastAPI()
 app.state.db = DB()
@@ -54,7 +52,7 @@ def get_sector_by_name(sector_name: str):
     sector = app.state.sector_repository.fetch_company_by_sector(sector_name)
     return {"data": sector}
 
-@app.get("/company") # alle companies 
+@app.get("/company") # alle companies
 def get_all_companies():
     companylist = app.state.company_repository.fetch_all_company_names()
     return {"data": companylist}

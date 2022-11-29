@@ -1,22 +1,15 @@
 import os
-import pandas as pd
 import time
-from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.remote.webelement import WebElement
-import glob
-import os
-import shutil
-import PyPDF2
 
-# gebruiken voor het ophalen van de sector
-from bs4 import BeautifulSoup
-import requests as req
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 from Controllers.Repositories.AnnualReports_Repository import AnnualReportsRepo as arr
+
+# gebruiken voor het ophalen van de sector
+
 
 # ################# #
 # Global variables #
@@ -25,7 +18,7 @@ url = 'https://consult.cbso.nbb.be/'
 
 
 class NBBScraper():
-  
+
   """
   TODO ...
   """
@@ -38,23 +31,23 @@ class NBBScraper():
     dirToPrint=os.getcwd()+'\Storage'
     prefs={"download.default_directory":dirToPrint}
     options.add_experimental_option("prefs",prefs)
-        
+
     br = webdriver.Chrome(executable_path='./chromedriver.exe', options=options)
-    
+
 
     br.get(url)
 
     try:
-      
+
       ondNrTextBox = '/html/body/app-root/div/main/div/app-deposit-search/div/p-tabview/div/div[2]/p-tabpanel[1]/div/app-search-by-enterprise-number/div/div[1]/div/input'
       ondNrButton = '/html/body/app-root/div/main/div/app-deposit-search/div/p-tabview/div/div[2]/p-tabpanel[1]/div/app-search-by-enterprise-number/div/div[2]/p-button/button'
 
       wait = WebDriverWait(br, 10)
       wait.until(EC.element_to_be_clickable((By.XPATH, ondNrTextBox))).send_keys(companyNr)
-      
+
       wait = WebDriverWait(br, 10)
       wait.until(EC.presence_of_element_located((By.XPATH, ondNrButton))).click()
-      
+
       xpathPDFDownload = '/html/body/app-root/div/main/div/app-search-result/div/div[2]/app-deposit-list/div/div[3]/app-deposit-item[1]/div/div[5]/app-download-deposit-pdf-button/button'
       xpathCSVDownload= '/html/body/app-root/div/main/div/app-search-result/div/div[2]/app-deposit-list/div/div[3]/app-deposit-item[1]/div/div[5]/app-download-deposit-csv-button/button'
 
@@ -65,7 +58,7 @@ class NBBScraper():
         """
         TODO log uitschrijven
         """
-      
+
       time.sleep(2)
 
       try:
@@ -85,4 +78,4 @@ class NBBScraper():
 
     finally:
       br.quit()
-    
+

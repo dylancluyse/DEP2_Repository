@@ -1,5 +1,4 @@
-from database import DB
-
+from app.database import DB
 
 
 class BaseRepository():

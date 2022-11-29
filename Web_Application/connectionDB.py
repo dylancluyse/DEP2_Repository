@@ -1,7 +1,8 @@
-import psycopg2
 import os
-from dotenv import load_dotenv
 from pathlib import Path
+
+import psycopg2
+from dotenv import load_dotenv
 
 dotenv_path = Path('Web_Application/.env')
 load_dotenv(dotenv_path=dotenv_path)

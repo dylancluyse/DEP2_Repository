@@ -10,9 +10,7 @@
 
 
 ```bash
-cd Web_Application 
-cd Website\ DEP2 
+cd Web_Application
+cd Website\ DEP2
 npm install #alleen de eerste keer indien npm niet installed is
 npm run dev
-
-

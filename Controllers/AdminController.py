@@ -1,4 +1,3 @@
-from Repositories.ConnectionController import Connection as conn
 
 class AdminController():
 

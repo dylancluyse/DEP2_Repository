@@ -1,4 +1,5 @@
-import os 
+import os
+
 try:  # nosec
     from dotenv import load_dotenv
 

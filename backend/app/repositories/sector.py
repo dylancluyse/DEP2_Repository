@@ -1,8 +1,9 @@
-from .baserepo import BaseRepository
+from app.repositories import BaseRepository
+
 
 class SectorRepository(BaseRepository):
 
-    def fetch_sectors(self): 
+    def fetch_sectors(self):
         result = self.fetch_all('''SELECT sectornaam from "Sector"''', [])
         return result
 
@@ -14,6 +15,3 @@ class SectorRepository(BaseRepository):
         result = self.fetch_all('''select naam from "KMO" join "Sector" ON "Sector".sectornummer = "KMO".sectorid WHERE "Sector".sectornaam = (%s)''',[sector_naam])
         # return [company[0] for company in result]
         return result
-
-
-

@@ -13,4 +13,4 @@ $ poetry shell
 
 ## DB access
 
-Please see the `.env.example` file and create a `.env` file. (Ask for the missing environment variables) 
+Please see the `.env.example` file and create a `.env` file. (Ask for the missing environment variables)

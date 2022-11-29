@@ -1,7 +1,6 @@
 #from Repositories.FileController import FileController as fc
 #from ConnectionController import Connection as conn
 
-import re
 
 from Controllers.Repositories.ConnectionController import Connection as conn
 from Controllers.Repositories.FileController import FileController as fc
@@ -13,7 +12,7 @@ class AnnualReportsRepo():
         pass
 
     """
-    TODO 
+    TODO
     Python-code: De nodige info uit het csv-bestand ophalen. Je krijgt een Pandas-dataframe terug van de filecontroller.
     SQL-query: De rij (afhankelijk van het ondernemingsnummer) wordt dan geüpdatet.
     """
@@ -25,7 +24,7 @@ class AnnualReportsRepo():
             contents2=csv_contents.iloc[:, 1]
 
             d = dict(zip(contents1, contents2))
-        
+
             """
             10/49 --> Balanstotaal
             9145 --> Netto toegevoegde waarde
@@ -74,7 +73,7 @@ class AnnualReportsRepo():
 
             if len(rows_id_exist) != 0:
                 cursor = db_conn.cursor()
-                
+
                 cursor.execute(f"""
                 UPDATE "KMO"
                 SET naam='{companyname}', vennootschap='{output[4]}', personeelsbestanden={output[8]}
@@ -86,13 +85,13 @@ class AnnualReportsRepo():
             else:
                 cursor = db_conn.cursor()
                 cursor.execute(f"""
-                INSERT INTO "KMO" (ondernemingsnummer, naam, vennootschap, personeelsbestanden) 
+                INSERT INTO "KMO" (ondernemingsnummer, naam, vennootschap, personeelsbestanden)
                 VALUES ({companynr}, '{companyname}', '{output[4]}', {output[8]});
                 """)
 
                 db_conn.commit()
                 cursor.close()
-        
+
             """
             BALANS-TABLE
             """
@@ -134,9 +133,9 @@ class AnnualReportsRepo():
                     db_conn.commit()
                     cursor.close()
         except:
-            """LOG TOEVOEGEN"""            
+            """LOG TOEVOEGEN"""
             print("COULDNT APPEND CSV INFO")
-        
+
 
     """
     TODO
@@ -144,13 +143,13 @@ class AnnualReportsRepo():
     """
     def add_NBB_PDF(companyNr, companyname):
         pdf_contents = fc.read_NBB_PDF()
-       
+
         db_conn = conn.get_conn()
 
         companyname = companyname.replace("'","")
 
 
-        """ 
+        """
         KMO-TABLE
         Hebben we al gegevens van dit ondernemingsnummer?
         -- Zo ja --> rij updaten.
@@ -175,7 +174,7 @@ class AnnualReportsRepo():
         else:
             cursor = db_conn.cursor()
             cursor.execute(f"""
-            INSERT INTO "KMO" (ondernemingsnummer, naam) 
+            INSERT INTO "KMO" (ondernemingsnummer, naam)
             VALUES (0{companyNr}, {companyname});
             """)
 
@@ -222,4 +221,3 @@ class AnnualReportsRepo():
 
             db_conn.commit()
             cursor.close()
-

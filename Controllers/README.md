@@ -1,4 +1,4 @@
-# NL: Het gebruik van de scrapingtools. 
+# NL: Het gebruik van de scrapingtools.
 ...
 
 # EN: Using the scrapingtools.

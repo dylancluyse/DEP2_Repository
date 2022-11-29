@@ -1,7 +1,7 @@
-import os
-from pymysql import Connect
-import pyodbc, psycopg2
+import psycopg2
+
 from config import config
+
 
 class Connection():
     def get_conn(self):

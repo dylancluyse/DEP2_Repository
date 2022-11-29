@@ -1,19 +1,12 @@
-from datetime import date
-from pandas import array
-import numpy as np
-from tqdm import tqdm
-import time
-from dotenv import load_dotenv
-
-
 import datetime
 
-from Controllers.AnnualReportsController import NBBScraper as nbs
-from Controllers.WebScraperController import WebScraper as wbs
-from Controllers.Repositories.ConnectionController import Connection as conn
-from Controllers.KMOcontroller import KMO_controller as kmocon
+from dotenv import load_dotenv
+from tqdm import tqdm
 
-import pandas as pd
+from Controllers.AnnualReportsController import NBBScraper as nbs
+from Controllers.KMOcontroller import KMO_controller as kmocon
+from Controllers.Repositories.ConnectionController import Connection as conn
+from Controllers.WebScraperController import WebScraper as wbs
 
 """
 repo objecten
@@ -43,7 +36,7 @@ class MainApp():
         INNER JOIN "Balans" b on k.ondernemingsnummer = b.ondernemingsnummer
         where date_nbb_report != YEAR({CURRENTYEAR})
         """)
-        
+
 
     def updateOne(self, companyNr, site, compname):
 
@@ -51,7 +44,7 @@ class MainApp():
         TODO PDF
         1. PDF downloaden.
         2. Gegevens uit PDF halen.
-        3. PDF omzetten. 
+        3. PDF omzetten.
         4. Content PDF naar databank.
         """
 
