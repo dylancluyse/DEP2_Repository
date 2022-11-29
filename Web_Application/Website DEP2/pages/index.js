@@ -7,14 +7,16 @@ import Image from 'next/image'
 import DomainCard from '../components/domain-card'
 import fetcher from '../lib/fetcher'
 import DomainCardPlaceholder from '../components/domain-card-placeholder'
+import BasicList from '../components/company-list-card'
+import Async from "react-async";
 
 export default function Home() {
   const [domain, setDomain] = useState('')
 
-  const { data: domainList, mutate: revalidateDomains } = useSWR(
-    `/api/get-domains`,
-    fetcher
-  )
+  // const { data: domainList, mutate: revalidateDomains } = useSWR(
+  //   `/api/get-domains`,
+  //   fetcher
+  // )
   const [disabled, setDisabled] = useState(true)
   const [adding, setAdding] = useState(false)
   const [error, setError] = useState(null)
@@ -88,19 +90,21 @@ export default function Home() {
             {adding ? <LoadingDots /> : 'search'}
           </button>
         </form>
-
+      
       </main>
       
       <p>Sectoren</p>
       <div class="grid grid-flow-row-dense grid-cols-3 grid-rows-3 gap-10 text-gray-500 border-gray-300  ">
-            <a href='http://localhost:3000/sector1' className="bg-orange-100 w-100 p-8 m-5">sector1</a>
-            <a href='http://localhost:3000/sector2' className="bg-orange-100 w-100 p-8 m-5">sector2</a>
-            <a href='http://localhost:3000/sector3' className="bg-orange-100 w-100 p-8 m-5">sector3</a>
-            <a href='http://localhost:3000/sector4' className="bg-orange-100 w-100 p-8 m-5">sector4</a>
-            <a href='http://localhost:3000/sector5' className="bg-orange-100 w-100 p-8 m-5">sector5</a>
-            <a href='http://localhost:3000/sector6' className="bg-orange-100 w-100 p-8 m-5">sector6</a>
+            <a href='http://localhost:3000/sector/sector1' className="bg-orange-100 w-100 p-8 m-5">sector1</a>
+            <a href='http://localhost:3000/sector/sector2' className="bg-orange-100 w-100 p-8 m-5">sector2</a>
+            <a href='http://localhost:3000/sector/sector3' className="bg-orange-100 w-100 p-8 m-5">sector3</a>
+            <a href='http://localhost:3000/sector/sector4' className="bg-orange-100 w-100 p-8 m-5">sector4</a>
+            <a href='http://localhost:3000/sector/sector5' className="bg-orange-100 w-100 p-8 m-5">sector5</a>
+            <a href='http://localhost:3000/sector/sector6' className="bg-orange-100 w-100 p-8 m-5">sector6</a>
 
         </div>
+    <div>
+    </div>
 
 
 
