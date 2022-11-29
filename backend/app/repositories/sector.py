@@ -12,6 +12,7 @@ class SectorRepository(BaseRepository):
     #     return result
 
     def fetch_company_by_sector(self, sector_naam):
-        result = self.fetch_all('''select naam from "KMO" join "Sector" ON "Sector".sectornummer = "KMO".sectorid WHERE "Sector".sectornaam = (%s)''',[sector_naam])
+        result = self.fetch_all('''select naam, ondernemingsnummer from "KMO" join "Sector" ON "Sector".sectornummer = "KMO".sectorid WHERE "Sector".sectornaam = (%s)''',[sector_naam])
         # return [company[0] for company in result]
-        return result
+        return [{"naam": company[0], "ondernemingsnummer": company[1]} for company in result]
+        # return resrlt
