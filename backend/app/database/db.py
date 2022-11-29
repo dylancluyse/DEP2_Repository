@@ -2,8 +2,6 @@ from typing import Any
 from config import config
 import psycopg2
 
-
-
 class DB():
     conn: Any
 
