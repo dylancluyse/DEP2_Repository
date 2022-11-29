@@ -1,3 +1,4 @@
+import { Link } from '@mui/material'
 import { useRouter } from 'next/router'
 import CompanyOverview from '../../components/company-card.js'
 
@@ -7,9 +8,9 @@ const Post = () => {
 
   return (
     <div>
-      <a href="/">Home </a>
+      <Link href="/">Home </Link>
       <h1> {company} </h1>
-      < CompanyOverview />
+      < CompanyOverview company={company} />
     </div>
   )
 }
