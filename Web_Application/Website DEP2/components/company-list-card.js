@@ -8,32 +8,28 @@ import {useState, useEffect} from "react"
 import useSWR, { mutate } from 'swr'
 import fetcher from '../lib/fetcher'
 
-const BasicList = () => {
-  const [companies, setCompanies] = useState('')
+const CompanyList = (props) => {
+  const sectorName = props.sector
 
-  const id = "ik_ben_een_id"
-
-  const { data: companyList, mutate: revalidateDomains, error } = useSWR(
-    `http://localhost:8000/sector/${id}`,
+  const { data: companyList, error } = useSWR(
+    `http://localhost:8000/sector/${sectorName}`,
     fetcher
   )
   if (error) return <div>failed to load</div>
   if (!companyList) return <div>loading...</div>
 
   const {
-    data : { items: foo }
+    data : companiesForSector
   } = companyList
 
-  console.log(foo)
-  const complijst = foo.map(comp =>{
-    const url = `/companies/${comp.id}`
+  const complijst = companiesForSector.map(company =>{
+    const url = `/company/${company.naam}`
           return (
-            <ListItemButton component="a" href={url}>
-              <ListItemText primary={`${comp.id}: ${comp.name}`} />
+            <ListItemButton key={`${company.ondernemingsnummer}`} component="a" href={url}>
+              <ListItemText primary={`${company.naam}`} />
             </ListItemButton>
           )
   })
-  console.log(complijst)
   return (
     <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
       <List component="nav" aria-label="secondary mailbox folder">
@@ -43,4 +39,4 @@ const BasicList = () => {
   );
 }
 
-export default BasicList;
+export default CompanyList;

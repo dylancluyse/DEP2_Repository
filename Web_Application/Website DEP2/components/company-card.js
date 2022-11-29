@@ -8,29 +8,32 @@ import {useState, useEffect} from "react"
 import useSWR, { mutate } from 'swr'
 import fetcher from '../lib/fetcher'
 
-const CompanyOverview = () => {
-  const [companies, setCompanies] = useState('')
+const CompanyOverview = (props) => {
+  // const [companies, setCompanies] = useState('')
 
   const { data: companyList, mutate: revalidateDomains, error } = useSWR(
-    `http://localhost:8000/foo`,
+    `http://localhost:8000/company/${props.company}`,
     fetcher
   )
   if (error) return <div>failed to load</div>
   if (!companyList) return <div>loading...</div>
 
   const {
-    data : { items: foo }
+    data : company
   } = companyList
+  
+  console.log(company)
 
-  console.log(foo)
-  const complijst = foo.map(comp =>{
-    const url = `/companies/${comp.id}`
-          return (
-            <ListItemButton component="a" href={url}>
-              <ListItemText primary={`${comp.id}: ${comp.name}`} />
-            </ListItemButton>
-          )
+
+  const complijst = Object.entries(company).map(prop =>{
+    if (prop[1]) {
+      return (
+        <ListItemText primary={`${prop[0]}: ${prop[1]}`} />
+      )
+    }
+
   })
+
   console.log(complijst)
   return (
     <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
