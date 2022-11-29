@@ -14,12 +14,6 @@ app.state.company_repository = CompanyRespository(db=app.state.db)
 app.state.sector_repository = SectorRepository(db=app.state.db)
 
 
-x = app.state.company_repository.fetch_all_company_names()
-l = x[1][0]
-print(l)
-y = app.state.company_repository.fetch_company(l)
-print(y)
-
 origins = [ "http://localhost:3000", "https://localhost:3000", "https://localhost", "http://localhost" ]
 app.add_middleware(
         CORSMiddleware,
