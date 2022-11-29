@@ -35,6 +35,24 @@ def read_item():
         }
     return {"data": out}
 
+
+@app.get("/sector") # alle sectors
+def get_all_sectors():
+    return "todo"
+
+@app.get("/sector/{sector_name}") # specifieke sectors
+def get_sector_by_name():
+    return "todo"
+
+@app.get("/company") # alle companies 
+def get_all_companies():
+    return "todo"
+
+@app.get("/company/{company_name}") # specifieke company
+def get_company_by_name():
+    return "todo"
+
+
 @app.get("/sector/{company_id}")
 def read_item(company_id: str):
     out = {
