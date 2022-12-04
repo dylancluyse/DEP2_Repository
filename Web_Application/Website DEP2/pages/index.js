@@ -1,85 +1,83 @@
-import Head from 'next/head'
-import { useEffect, useState } from 'react'
-import LoadingDots from '../components/loading-dots'
-import toast, { Toaster } from 'react-hot-toast'
-import useSWR from 'swr'
-import Image from 'next/image'
-import DomainCard from '../components/domain-card'
-import fetcher from '../lib/fetcher'
-import DomainCardPlaceholder from '../components/domain-card-placeholder'
-import Async from "react-async";
-import SectorList from '../components/sector-card.js'
+import Head from 'next/head';
+import { useEffect, useState } from 'react';
+import LoadingDots from '../components/loading-dots';
+import toast, { Toaster } from 'react-hot-toast';
+import useSWR from 'swr';
+import Image from 'next/image';
+import DomainCard from '../components/domain-card';
+import fetcher from '../lib/fetcher';
+import DomainCardPlaceholder from '../components/domain-card-placeholder';
+import Async from 'react-async';
+import SectorList from '../components/sector-card.js';
 
 export default function Home() {
-  const [domain, setDomain] = useState('')
+  const [domain, setDomain] = useState('');
 
   // const { data: domainList, mutate: revalidateDomains } = useSWR(
   //   `/api/get-domains`,
   //   fetcher
   // )
-  const [disabled, setDisabled] = useState(true)
-  const [adding, setAdding] = useState(false)
-  const [error, setError] = useState(null)
+  const [disabled, setDisabled] = useState(true);
+  const [adding, setAdding] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (domain.length == 0) {
-      setDisabled(true)
+      setDisabled(true);
     } else {
-      setDisabled(false)
+      setDisabled(false);
     }
-  }, [domain])
+  }, [domain]);
 
   useEffect(() => {
-    if (adding) setDisabled(true)
-  }, [adding])
-
+    if (adding) setDisabled(true);
+  }, [adding]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className='flex flex-col items-center justify-center min-h-screen py-2  max-h-screen'>
       <Head>
         <title>Bedrijven</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel='icon' href='/favicon.ico' />
       </Head>
       <Toaster
-        position="bottom-right"
+        position='bottom-right'
         toastOptions={{
           duration: 10000,
         }}
       />
 
-
-      <main className="flex flex-col items-center justify-center w-full flex-1 sm:px-20 my-20">
-        <h1 className="text-4xl sm:text-6xl font-bold">Bedrijven</h1>
+      <main className='flex flex-col items-center justify-center w-full flex-1 sm:px-20 my-20'>
+        <h1 className='text-4xl sm:text-6xl font-bold'>Bedrijven</h1>
 
         <form
           onSubmit={async (e) => {
-            e.preventDefault()
-            setAdding(true)
+            e.preventDefault();
+            setAdding(true);
             try {
-              await fetch(`/api/add-domain?domain=${domain}`)
-              await revalidateDomains()
+              await fetch(`/api/add-domain?domain=${domain}`);
+              await revalidateDomains();
             } catch (error) {
-              alert(error.message)
+              alert(error.message);
             } finally {
-              setAdding(false)
+              setAdding(false);
             }
           }}
-          className="flex justify-between space-x-4 px-5 w-full max-w-2xl h-10 mt-10"
+          className='flex justify-between space-x-4 px-5 w-full max-w-2xl h-10 mt-10'
         >
           <input
-            type="text"
-            name="domain"
+            type='text'
+            name='domain'
             onInput={(e) => {
-              setDomain(e.target.value)
+              setDomain(e.target.value);
             }}
-            autoComplete="off"
-            placeholder="sector"
-            pattern="^(?:[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.)?[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$"
+            autoComplete='off'
+            placeholder='sector'
+            pattern='^(?:[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.)?[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$'
             required
-            className="rounded-md border border-gray-300 focus:ring-0 focus:border-black px-4 flex-auto min-w-0 sm:text-sm"
+            className='rounded-md border border-gray-300 focus:ring-0 focus:border-black px-4 flex-auto min-w-0 sm:text-sm'
           />
           <button
-            type="submit"
+            type='submit'
             disabled={disabled}
             className={`${
               disabled
@@ -90,26 +88,21 @@ export default function Home() {
             {adding ? <LoadingDots /> : 'search'}
           </button>
         </form>
-
       </main>
 
-      <SectorList/>
+      <SectorList />
 
-    <div>
-    </div>
+      <div></div>
 
-
-
-      <footer className="flex items-center justify-center w-full h-10 border-t">
+      <footer className='flex items-center justify-center w-full h-10 border-t'>
         <a
-          className="flex items-center justify-center"
-
-          target="_blank"
-          rel="noreferrer"
+          className='flex items-center justify-center'
+          target='_blank'
+          rel='noreferrer'
         >
           DEP groep 1
         </a>
       </footer>
     </div>
-  )
+  );
 }
