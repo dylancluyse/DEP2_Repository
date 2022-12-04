@@ -46,7 +46,7 @@ export default function Home() {
         }}
       />
 
-      <main className='flex flex-col items-center justify-center w-full flex-1 sm:px-20 my-20'>
+      <main className='flex flex-col items-center justify-center w-full flex-1 sm:px-20 my-10'>
         <h1 className='text-4xl sm:text-6xl font-bold'>Bedrijven</h1>
 
         <form
@@ -91,8 +91,6 @@ export default function Home() {
       </main>
 
       <SectorList />
-
-      <div></div>
 
       <footer className='flex items-center justify-center w-full h-10 border-t'>
         <a

@@ -33,7 +33,7 @@ const SectorList = () => {
   return (
     <div>
       <p class='text-center text-2xl'>Sectoren</p>
-      <div class='grid grid-flow-row-dense grid-cols-3 grid-rows-3 gap-10 text-gray-500 border-gray-300 text-center '>
+      <div class='grid grid-flow-row-dense grid-cols-3 grid-rows-3 gap-5 text-gray-500 border-gray-300 text-center '>
         {sector_lines}
       </div>
     </div>

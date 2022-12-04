@@ -29,7 +29,7 @@ const Post = () => {
         <CompanyList sector={sectorname} />
         <div class=' bg-gradient-to-r from-oxford-blue to-lighter-oxford w-full text-white	'>
           {/* plaats voor gegevens bedrijf + grafieken */}
-          <p>TEST</p>
+          <p>INSERT COMPANY DATA HERE</p>
         </div>
       </div>
     </div>
