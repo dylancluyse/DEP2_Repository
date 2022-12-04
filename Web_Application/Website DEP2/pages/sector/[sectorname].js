@@ -19,9 +19,9 @@ const Post = () => {
       </h1>
       <br />
       <br />
-      <div class='text-left bg-green-800 pl-2 flex flex-row max-h-screen	'>
+      <div class='text-left pl-2 flex flex-row max-h-screen 	'>
         <CompanyList sector={sectorname} />
-        <div class='bg-yellow-500 w-full'>
+        <div class=' bg-gradient-to-r from-oxford-blue to-lighter-oxford w-full text-white	'>
           {/* plaats voor gegevens bedrijf + grafieken */}
           <p>TEST</p>
         </div>
