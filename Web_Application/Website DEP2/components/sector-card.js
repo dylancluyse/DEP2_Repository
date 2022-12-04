@@ -15,8 +15,8 @@ const SectorList = () => {
     fetcher
 
   )
-  if (error) return <div>failed to load</div>
-  if (!companyList) return <div>loading...</div>
+  if (error) return (<div>failed to load</div>)
+  if (!companyList) return (<div>loading...</div>)
 
   const {
     data : sectors
