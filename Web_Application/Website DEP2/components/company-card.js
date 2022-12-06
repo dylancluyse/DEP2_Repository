@@ -9,7 +9,9 @@ import useSWR, { mutate } from 'swr'
 import fetcher from '../lib/fetcher'
 
 const CompanyOverview = (props) => {
-  // const [companies, setCompanies] = useState('')
+  if (!props.company) {
+    return (<p>Please select a company.</p>)
+  }
 
   const { data: companyList, mutate: revalidateDomains, error } = useSWR(
     `http://localhost:8000/company/${props.company}`,
@@ -22,7 +24,6 @@ const CompanyOverview = (props) => {
     data : company
   } = companyList
   
-  console.log(company)
 
 
   const complijst = Object.entries(company).map(prop =>{
@@ -36,7 +37,7 @@ const CompanyOverview = (props) => {
 
   console.log(complijst)
   return (
-    <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+    <Box sx={{ width: '100%', maxWidth: 360 }}>
       <List component="nav" aria-label="secondary mailbox folder">
         {complijst}
       </List>
