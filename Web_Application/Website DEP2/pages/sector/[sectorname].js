@@ -2,10 +2,18 @@ import { Link } from '@mui/material';
 import { useRouter } from 'next/router';
 import CompanyList from '../../components/company-list-card.js';
 import CompanyOverview from '../../components/company-card.js';
+import { useState, useCallback } from 'react';
 
 const Post = () => {
   const router = useRouter();
-  const { sectorname } = router.query;
+  const { sectorname, company } = router.query;
+
+  const [selectedCompany, setSelectedCompany] = useState("");
+
+  const setSetterWithoutReload = useCallback(companyName => {
+      setSelectedCompany(companyName);
+    }, []);
+
 
   return (
     <div class='overflow-hidden	'>
@@ -26,10 +34,10 @@ const Post = () => {
       <br />
 
       <div class='absolute text-left pl-2 flex flex-row max-h-screen w-full	'>
-        <CompanyList sector={sectorname} />
+        <CompanyList sector={sectorname} companySetter={setSetterWithoutReload} />
         <div class=' bg-gradient-to-r from-oxford-blue to-lighter-oxford w-full text-white	'>
           {/* plaats voor gegevens bedrijf + grafieken */}
-          <p>INSERT COMPANY DATA HERE</p>
+          < CompanyOverview company={selectedCompany} />
         </div>
       </div>
     </div>
