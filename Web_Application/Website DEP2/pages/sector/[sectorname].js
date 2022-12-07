@@ -8,19 +8,18 @@ const Post = () => {
   const router = useRouter();
   const { sectorname, company } = router.query;
 
-  const [selectedCompany, setSelectedCompany] = useState("");
+  const [selectedCompany, setSelectedCompany] = useState('');
 
-  const setSetterWithoutReload = useCallback(companyName => {
-      setSelectedCompany(companyName);
-    }, []);
-
+  const setSetterWithoutReload = useCallback((companyName) => {
+    setSelectedCompany(companyName);
+  }, []);
 
   return (
     <div class='overflow-hidden	'>
       <div>
         <a
           href='/'
-          class=' fixed mb-5 m-5 text-white bg-blue-700 hover:bg-blue-800  focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
+          class=' fixed mb-5 m-5 text-white bg-blue-de-france hover:bg-blue-800  focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
         >
           back
         </a>
@@ -34,10 +33,13 @@ const Post = () => {
       <br />
 
       <div class='absolute text-left pl-2 flex flex-row max-h-screen w-full	'>
-        <CompanyList sector={sectorname} companySetter={setSetterWithoutReload} />
-        <div class=' bg-gradient-to-r from-oxford-blue to-lighter-oxford w-full text-white	'>
+        <CompanyList
+          sector={sectorname}
+          companySetter={setSetterWithoutReload}
+        />
+        <div class=' bg-gradient-to-r from-light-yellow to-light-yellow w-full text-black	'>
           {/* plaats voor gegevens bedrijf + grafieken */}
-          < CompanyOverview company={selectedCompany} />
+          <CompanyOverview company={selectedCompany} />
         </div>
       </div>
     </div>

@@ -6,8 +6,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'oxford-blue': '#09306F',
-        'lighter-oxford': "#0B3D8E",
+        'oxford-blue': '#3083dc',
+        'lighter-oxford': "#3083dc",
+        'light-yellow': "#f8ffe5",
+        'blue-de-france': "#3083dc"
       }
     },
   },
