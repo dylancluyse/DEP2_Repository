@@ -3,16 +3,47 @@ import { useRouter } from 'next/router';
 import CompanyList from '../../components/company-list-card.js';
 import CompanyOverview from '../../components/company-card.js';
 import { useState, useCallback } from 'react';
+import React from 'react';
+import {
+  ComposedChart,
+  Line,
+  Area,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  Scatter,
+  ResponsiveContainer,
+} from 'recharts';
 
 const Post = () => {
   const router = useRouter();
   const { sectorname, company } = router.query;
+  const data = [
+    { name: 'Page A', uv: 400, mean: 375 },
+    { name: 'Page B', uv: 500, mean: 375 },
+    { name: 'Page C', uv: 500, mean: 375 },
+    { name: 'Page D', uv: 600, mean: 375 },
+  ];
 
   const [selectedCompany, setSelectedCompany] = useState('');
 
   const setSetterWithoutReload = useCallback((companyName) => {
     setSelectedCompany(companyName);
   }, []);
+  const renderLineChart = (
+    <ComposedChart width={350} height={320} data={data}>
+      <CartesianGrid stroke='#f5f5f5' />
+      <XAxis dataKey='name' scale='band' />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Bar dataKey='uv' barSize={20} fill='#413ea0' />
+      <Line type='monotone' dataKey='mean' stroke='#ff7300' />
+    </ComposedChart>
+  );
 
   return (
     <div class='overflow-hidden	'>
@@ -25,8 +56,11 @@ const Post = () => {
         </a>
         <h1 class='sticky top-0 p-2 mx-10 mt-5 text-center text-2xl font-bold	'>
           {' '}
-          {sectorname}{' '}
+          {sectorname}
         </h1>
+        <div class='sticky top-0 p-1 mx-10 mt-1 text-center text-xl'>
+          <h2>Score sector:</h2>
+        </div>
       </div>
 
       <br />
@@ -40,11 +74,6 @@ const Post = () => {
         <div class=' bg-gradient-to-r from-light-yellow to-light-yellow w-full text-black	'>
           {/* plaats voor gegevens bedrijf + grafieken */}
 
-          {/* <div class='flex h-96 overflow-y-scroll'>
-            <div class='w-1/3  bg-red-500'>Grafiek 1</div>
-            <div class='w-1/3  bg-red-500'>Grafiek 2</div>
-            <div class='w-1/3  bg-red-500'>Grafiek 3</div>
-          </div> */}
           <div class='grid overflow-hidden grid-cols-3 grid-rows-2 gap-0.5"'>
             <div class='box row-start-1 row-end-1 col-start-1 col-end-3'>
               <CompanyOverview company={selectedCompany} />
@@ -52,9 +81,10 @@ const Post = () => {
             <div class='box row-start-1 col-start-3 col-end-4'>
               Score bedrijf
             </div>
-            <div class=''>Grafiek 1</div>
-            <div class=''>Grafiek 2</div>
-            <div class=''>Grafiek 3</div>
+            <div class=''>Grafiek 1{renderLineChart} </div>
+
+            <div class=''>Grafiek 2 {renderLineChart}</div>
+            <div class=''>Grafiek 3 {renderLineChart}</div>
           </div>
         </div>
       </div>
