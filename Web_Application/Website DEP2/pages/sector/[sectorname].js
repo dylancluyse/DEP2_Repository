@@ -39,7 +39,23 @@ const Post = () => {
         />
         <div class=' bg-gradient-to-r from-light-yellow to-light-yellow w-full text-black	'>
           {/* plaats voor gegevens bedrijf + grafieken */}
-          <CompanyOverview company={selectedCompany} />
+
+          {/* <div class='flex h-96 overflow-y-scroll'>
+            <div class='w-1/3  bg-red-500'>Grafiek 1</div>
+            <div class='w-1/3  bg-red-500'>Grafiek 2</div>
+            <div class='w-1/3  bg-red-500'>Grafiek 3</div>
+          </div> */}
+          <div class='grid overflow-hidden grid-cols-3 grid-rows-2 gap-0.5"'>
+            <div class='box row-start-1 row-end-1 col-start-1 col-end-3'>
+              <CompanyOverview company={selectedCompany} />
+            </div>
+            <div class='box row-start-1 col-start-3 col-end-4'>
+              Score bedrijf
+            </div>
+            <div class=''>Grafiek 1</div>
+            <div class=''>Grafiek 2</div>
+            <div class=''>Grafiek 3</div>
+          </div>
         </div>
       </div>
     </div>
