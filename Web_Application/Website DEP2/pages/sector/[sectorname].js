@@ -50,7 +50,7 @@ const Post = () => {
       <div>
         <a
           href='/'
-          class=' fixed mb-5 m-5 text-white bg-blue-de-france hover:bg-blue-800  focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
+          class='absolute mt-2 mb-5 m-5 text-white bg-blue-de-france hover:bg-blue-800  focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
         >
           back
         </a>
@@ -61,9 +61,21 @@ const Post = () => {
         <div class='sticky top-0 p-1 mx-10 mt-1 text-center text-xl'>
           <h2>Score sector:</h2>
         </div>
+        <form class='flex items-center justify-start w-96 ml-5 pb-5'>
+          <input
+            class='flex-grow px-2 py-1 rounded-lg mr-2 w-16'
+            type='text'
+            placeholder='Search...'
+            id='zoekBedrijfInSector'
+          ></input>
+          <button
+            class='px-2 py-1 rounded-lg bg-blue-500 text-white'
+            type='submit'
+          >
+            Search
+          </button>
+        </form>
       </div>
-
-      <br />
       <br />
 
       <div class='absolute text-left pl-2 flex flex-row max-h-screen w-full	'>
