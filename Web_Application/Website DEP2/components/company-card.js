@@ -4,9 +4,37 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import { useState, useEffect } from 'react';
+import makeStyles from '@mui/material/styles/makeStyles';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 import useSWR, { mutate } from 'swr';
 import fetcher from '../lib/fetcher';
+
+const CompanyView = ({ name, id, website, sector, foundingDate }) => {
+  return (
+    <Card>
+      <CardContent class="grid justify-center grid-cols-1 gap-0.5">
+        <Typography variant="h5" component="h2">
+          {name}
+        </Typography>
+        <Typography color="textSecondary">
+          Ondernemingsnummer: {id}
+        </Typography>
+        <Typography color="textSecondary">
+          Website: <a href={website}>{website}</a>
+        </Typography>
+        <Typography color="textSecondary">
+          Sector: {sector}
+        </Typography>
+        <Typography color="textSecondary">
+          Founding Date: {foundingDate}
+        </Typography>
+      </CardContent>
+    </Card>
+  );
+};
+
 
 const CompanyOverview = (props) => {
   if (!props.company) {
@@ -15,7 +43,6 @@ const CompanyOverview = (props) => {
 
   const {
     data: companyList,
-    mutate: revalidateDomains,
     error,
   } = useSWR(`http://localhost:8000/company/${props.company}`, fetcher);
   if (error) return <div>failed to load</div>;
@@ -23,28 +50,20 @@ const CompanyOverview = (props) => {
 
   const { data: company } = companyList;
 
-  const complijst = Object.entries(company).map((prop) => {
-    if (prop[1]) {
-      return (
-        <div>
-          <ListItemText primary={`${prop[0]}: ${prop[1]}`} class='pl-4 pt-2' />
-        </div>
-      );
-    }
-  });
-
-  console.log(complijst);
   return (
     <Box
       sx={{
-        width: '70%',
-        overflowY: 'scroll',
-        maxHeight: 400,
+        width: '100%',
+        bgcolor: 'background.paper',
       }}
     >
-      <List component='nav' aria-label='secondary mailbox folder'>
-        {complijst}
-      </List>
+      <div>
+        <CompanyView name={company.naam}
+        id={company.ondernemingsnummer}
+        website={company.website}
+        sector={company.sectornaam}
+        foundingDate={company.foundingdate} class='pl-4 pt-2' />
+      </div>
     </Box>
   );
 };

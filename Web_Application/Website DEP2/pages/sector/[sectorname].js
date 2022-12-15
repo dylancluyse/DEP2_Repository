@@ -33,6 +33,7 @@ const Post = () => {
   const setSetterWithoutReload = useCallback((companyName) => {
     setSelectedCompany(companyName);
   }, []);
+
   const renderLineChart = (
     <ComposedChart width={380} height={350} padding={10} data={data}>
       <CartesianGrid stroke='#f5f5f5' />

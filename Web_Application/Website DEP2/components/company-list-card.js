@@ -48,7 +48,7 @@ const CompanyList = (props) => {
     <Box
       sx={{
         width: '100%',
-        maxWidth: 360,
+        maxWidth: '33%',
         bgcolor: 'background.paper',
         overflow: 'scroll',
       }}
