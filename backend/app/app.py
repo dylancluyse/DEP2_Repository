@@ -28,19 +28,9 @@ def read_root():
 
 @app.get("/foo")
 def read_item():
-    # sleep(3)
-    out = {
-            "items": [
-                {"id": 1, "name": "Jannsens Inc."},
-                {"id": 2, "name": "Colruyt Groep"},
-                {"id": 3, "name": "Willy Naessens"},
-                {"id": 4, "name": "Matexi"},
-                {"id": 5, "name": "In The Pocket"},
-                {"id": 6, "name": "HOGENT"},
-            ]
-        }
-    return {"data": out}
-
+    ondernemingsnummer = "419119578"
+    company = app.state.company_repository.fetch_company_view(ondernemingsnummer)
+    return {"data": company}
 
 @app.get("/sector") # alle sectors
 def get_all_sectors():
@@ -57,9 +47,9 @@ def get_all_companies():
     companylist = app.state.company_repository.fetch_all_company_names()
     return {"data": companylist}
 
-@app.get("/company/{company_name}") # specifieke company
-def get_company_by_name(company_name: str):
-    company = app.state.company_repository.fetch_company(company_name)
+@app.get("/company/{company_id}") # specifieke company
+def get_company_by_name(company_id: str):
+    company = app.state.company_repository.fetch_company_view(company_id)
     return {"data": company}
 
 
