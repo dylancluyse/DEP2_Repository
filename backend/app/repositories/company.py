@@ -9,13 +9,13 @@ class CompanyRespository(BaseRepository):
     def fetch_all_company_names(self):
         q = '''SELECT naam from "KMO"'''
         v = []
-        result = self.fetch_all(q, v)
+        result, description = self.fetch_all(q, v)
         return result
 
     def fetch_company(self, naam):
         q = '''SELECT ondernemingsnummer, naam, website, wcm, vennootschap, soortbusiness, sectorid, personeelsbestanden, beursgenoteerd, foundingdate, environment, social, governance from "KMO" where "naam" = (%s)'''
         v = [naam]
-        result = self.fetch_all(q, v)
+        result, description= self.fetch_all(q, v)
         if result:
             result = result[0]
             result = {
@@ -34,3 +34,12 @@ class CompanyRespository(BaseRepository):
                     "governance":result[12],
                     }
         return result
+
+    def fetch_company_view(self, naam):
+        q = '''SELECT * from "website_data" WHERE ondernemingsnummer = (%s)'''
+        v = [naam]
+        result, description = self.fetch_all(q, v)
+
+        column_names = [column_description[0] for column_description in description]
+        res = {k: v for k, v in zip(column_names, result[0])}
+        return res
