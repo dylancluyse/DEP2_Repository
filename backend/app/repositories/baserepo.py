@@ -16,4 +16,5 @@ class BaseRepository():
         cursor = self.db.conn.cursor()
         cursor.execute(query, values)
         result = cursor.fetchall()
-        return result
+        description = cursor.description
+        return result, description
