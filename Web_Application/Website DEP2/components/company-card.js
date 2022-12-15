@@ -13,21 +13,17 @@ import fetcher from '../lib/fetcher';
 
 const CompanyView = ({ name, id, website, sector, foundingDate }) => {
   return (
-    <Card>
-      <CardContent class="grid justify-center grid-cols-1 gap-0.5">
-        <Typography variant="h5" component="h2">
+    <Card class='p-5 bg-gradient-to-r from-light-yellow to-light-yellow'>
+      <CardContent class='grid justify-center grid-cols-1 gap-0.5 '>
+        <Typography variant='h5' component='h2'>
           {name}
         </Typography>
-        <Typography color="textSecondary">
-          Ondernemingsnummer: {id}
-        </Typography>
-        <Typography color="textSecondary">
+        <Typography color='textSecondary'>Ondernemingsnummer: {id}</Typography>
+        <Typography color='textSecondary'>
           Website: <a href={website}>{website}</a>
         </Typography>
-        <Typography color="textSecondary">
-          Sector: {sector}
-        </Typography>
-        <Typography color="textSecondary">
+        <Typography color='textSecondary'>Sector: {sector}</Typography>
+        <Typography color='textSecondary'>
           Founding Date: {foundingDate}
         </Typography>
       </CardContent>
@@ -35,16 +31,15 @@ const CompanyView = ({ name, id, website, sector, foundingDate }) => {
   );
 };
 
-
 const CompanyOverview = (props) => {
   if (!props.company) {
     return <p>Please select a company.</p>;
   }
 
-  const {
-    data: companyList,
-    error,
-  } = useSWR(`http://localhost:8000/company/${props.company}`, fetcher);
+  const { data: companyList, error } = useSWR(
+    `http://localhost:8000/company/${props.company}`,
+    fetcher
+  );
   if (error) return <div>failed to load</div>;
   if (!companyList) return <div>loading...</div>;
 
@@ -58,11 +53,14 @@ const CompanyOverview = (props) => {
       }}
     >
       <div>
-        <CompanyView name={company.naam}
-        id={company.ondernemingsnummer}
-        website={company.website}
-        sector={company.sectornaam}
-        foundingDate={company.foundingdate} class='pl-4 pt-2' />
+        <CompanyView
+          name={company.naam}
+          id={company.ondernemingsnummer}
+          website={company.website}
+          sector={company.sectornaam}
+          foundingDate={company.foundingdate}
+          class='pl-4 pt-2'
+        />
       </div>
     </Box>
   );

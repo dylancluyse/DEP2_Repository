@@ -1,6 +1,8 @@
 import { Link } from '@mui/material';
 import { useRouter } from 'next/router';
 import CompanyList from '../../components/company-list-card.js';
+import CompanyScores from '../../components/company-scores.js';
+import CompanyGraph from '../../components/Company-score-graph.js';
 import CompanyOverview from '../../components/company-card.js';
 import { useState, useCallback } from 'react';
 import React from 'react';
@@ -91,8 +93,12 @@ const Post = () => {
             <div class='box row-start-1 row-end-1 col-start-1 col-end-3 '>
               <CompanyOverview company={selectedCompany} />
             </div>
-            <div></div>
-            <div class=''>{renderLineChart} </div>
+            <div>
+              <CompanyScores company={selectedCompany} />
+            </div>
+            <div class=''>
+              <CompanyGraph company={selectedCompany} />
+            </div>
             <div class=''>{renderLineChart}</div>
             <div class=''>{renderLineChart}</div>
           </div>
