@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {memo} from 'react';
+import { memo } from 'react';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -10,11 +10,10 @@ import useSWR, { mutate } from 'swr';
 import fetcher from '../lib/fetcher';
 import Router from 'next/router';
 
-
 function doSomething(setter, company, foo, counter) {
-  return function() {
-    setter(company)
-  }
+  return function () {
+    setter(company);
+  };
 }
 
 const CompanyList = (props) => {
@@ -33,7 +32,7 @@ const CompanyList = (props) => {
 
   const counter = -1;
   const complijst = companiesForSector.map((company) => {
-    counter += 1
+    counter += 1;
     return (
       <ListItemButton
         key={`${company.ondernemingsnummer}`}
