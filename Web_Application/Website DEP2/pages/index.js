@@ -39,6 +39,7 @@ export default function Home() {
         <title>Bedrijven</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
+
       <Toaster
         position='bottom-right'
         toastOptions={{

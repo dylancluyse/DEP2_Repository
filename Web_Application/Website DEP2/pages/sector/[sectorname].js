@@ -34,7 +34,7 @@ const Post = () => {
     setSelectedCompany(companyName);
   }, []);
   const renderLineChart = (
-    <ComposedChart width={350} height={320} data={data}>
+    <ComposedChart width={380} height={350} padding={10} data={data}>
       <CartesianGrid stroke='#f5f5f5' />
       <XAxis dataKey='name' scale='band' />
       <YAxis />
@@ -78,25 +78,22 @@ const Post = () => {
       </div>
       <br />
 
-      <div class='absolute text-left pl-2 flex flex-row max-h-screen w-full	'>
+      <div class='absolute text-left pl-2 flex flex-row h-screen w-full'>
         <CompanyList
           sector={sectorname}
           companySetter={setSetterWithoutReload}
         />
-        <div class=' bg-gradient-to-r from-light-yellow to-light-yellow w-full text-black	'>
+        <div class=' relative bg-gradient-to-r from-light-yellow to-light-yellow w-full text-black overflow-hidden'>
           {/* plaats voor gegevens bedrijf + grafieken */}
 
-          <div class='grid overflow-hidden grid-cols-3 grid-rows-2 gap-0.5"'>
-            <div class='box row-start-1 row-end-1 col-start-1 col-end-3'>
+          <div class='grid grid-cols-3 grid-rows-2 gap-0.5"'>
+            <div class='box row-start-1 row-end-1 col-start-1 col-end-3 '>
               <CompanyOverview company={selectedCompany} />
             </div>
-            <div class='box row-start-1 col-start-3 col-end-4'>
-              Score bedrijf
-            </div>
-            <div class=''>Grafiek 1{renderLineChart} </div>
-
-            <div class=''>Grafiek 2 {renderLineChart}</div>
-            <div class=''>Grafiek 3 {renderLineChart}</div>
+            <div></div>
+            <div class=''>{renderLineChart} </div>
+            <div class=''>{renderLineChart}</div>
+            <div class=''>{renderLineChart}</div>
           </div>
         </div>
       </div>

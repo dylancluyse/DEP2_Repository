@@ -35,7 +35,13 @@ const CompanyOverview = (props) => {
 
   console.log(complijst);
   return (
-    <Box sx={{ width: '100%', maxWidth: 360 }}>
+    <Box
+      sx={{
+        width: '70%',
+        overflowY: 'scroll',
+        maxHeight: 400,
+      }}
+    >
       <List component='nav' aria-label='secondary mailbox folder'>
         {complijst}
       </List>
