@@ -39,7 +39,7 @@ const CompanyList = (props) => {
         key={`${company.ondernemingsnummer}`}
         component='a'
         selected={selectedIndex === counter}
-        onClick={doSomething(companySetter, company.naam, setSelectedIndex, counter)}
+        onClick={doSomething(companySetter, company.ondernemingsnummer, setSelectedIndex, counter)}
       >
         <ListItemText primary={`${company.naam}`} />
       </ListItemButton>
