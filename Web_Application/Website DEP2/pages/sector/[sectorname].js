@@ -95,7 +95,7 @@ const Post = () => {
             <div class='box row-start-1 row-end-1 col-start-1 col-end-2 ml-24 mt-10 '>
               <CompanyOverview company={selectedCompany} />
             </div>
-            <div></div>
+            <div>zoektermen</div>
             <div>
               <CompanyScores company={selectedCompany} />
             </div>
