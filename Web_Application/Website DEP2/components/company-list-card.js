@@ -55,7 +55,8 @@ const CompanyList = (props) => {
         width: '100%',
         maxWidth: '20%',
         bgcolor: 'background.paper',
-        overflow: 'scroll',
+        overflowY: 'scroll',
+        height: '104vh',
       }}
     >
       <List component='nav' aria-label='secondary mailbox folder'>

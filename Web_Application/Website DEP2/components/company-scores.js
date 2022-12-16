@@ -80,6 +80,7 @@ const CompanyScoresOverview = (props) => {
       sx={{
         width: '100%',
         bgcolor: 'background.paper',
+        marginTop: '10px',
       }}
     >
       <div>

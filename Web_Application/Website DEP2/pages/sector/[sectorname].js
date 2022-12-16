@@ -1,6 +1,8 @@
 import { Link } from '@mui/material';
 import { useRouter } from 'next/router';
 import CompanyList from '../../components/company-list-card.js';
+import CompanyVsSector from '../../components/Companyvscompany-graph.js';
+import CompanyVsCompany from '../../components/companyVsAllCompanies-graph.js';
 import CompanyScores from '../../components/company-scores.js';
 import CompanyGraph from '../../components/Company-score-graph.js';
 import CompanyOverview from '../../components/company-card.js';
@@ -80,27 +82,32 @@ const Post = () => {
         </form>
       </div>
       <br />
-
-      <div class='absolute text-left pl-2 flex flex-row h-screen w-full'>
+      {/* //height set to auto to prevent the graph from being cut off */}
+      <div class='absolute text-left pl-2 flex flex-row h-auto w-full '>
         <CompanyList
           sector={sectorname}
           companySetter={setSetterWithoutReload}
         />
-        <div class=' relative bg-gradient-to-r from-light-yellow to-light-yellow w-full text-black overflow-hidden'>
+        <div class=' relative bg-gradient-to-r from-light-yellow to-light-yellow w-full text-black overflow-hidden '>
           {/* plaats voor gegevens bedrijf + grafieken */}
 
-          <div class='grid grid-cols-3 grid-rows-2 gap-0.5"'>
-            <div class='box row-start-1 row-end-1 col-start-1 col-end-3 '>
+          <div class='grid grid-cols-3 grid-rows-2 gap-0.5 '>
+            <div class='box row-start-1 row-end-1 col-start-1 col-end-2 ml-24 mt-10 '>
               <CompanyOverview company={selectedCompany} />
             </div>
+            <div></div>
             <div>
               <CompanyScores company={selectedCompany} />
             </div>
             <div class=''>
               <CompanyGraph company={selectedCompany} />
             </div>
-            <div class=''>{renderLineChart}</div>
-            <div class=''>{renderLineChart}</div>
+            <div class=''>
+              <CompanyVsSector company={selectedCompany} />
+            </div>
+            <div class=''>
+              <CompanyVsCompany company={selectedCompany} />
+            </div>
           </div>
         </div>
       </div>

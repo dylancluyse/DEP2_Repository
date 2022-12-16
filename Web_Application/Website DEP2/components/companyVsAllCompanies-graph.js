@@ -21,7 +21,7 @@ import {
 } from 'recharts';
 
 const CompanyScoresView = ({
-  name,
+  naam,
   score_env,
   score_social,
   score_governance,
@@ -34,19 +34,16 @@ const CompanyScoresView = ({
 }) => {
   const data = [
     {
-      name: 'Environment',
-      score: score_env,
+      name: naam,
+      //score: score_env,
       perc: perc_environment,
+      //simple: simple_env_scores,
     },
     {
-      name: 'Social',
-      score: score_social,
+      name: 'Gemiddelde',
+      // score: score_social,
       perc: per_social,
-    },
-    {
-      name: 'Governance',
-      score: score_governance,
-      perc: perc_governance,
+      //simple: simple_soc_scores,
     },
   ];
 
@@ -54,7 +51,7 @@ const CompanyScoresView = ({
     <Card class=' p-5 bg-gradient-to-r from-light-yellow to-light-yellow'>
       <CardContent class='grid justify-center grid-cols-1 gap-0.5 '>
         <Typography variant='p' component='p'>
-          Scores {name}:
+          Scores {naam} vs gemiddelde alle bedrijven:
         </Typography>
 
         <BarChart
@@ -73,8 +70,9 @@ const CompanyScoresView = ({
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey='score' fill='#8884d8' />
+          {/* <Bar dataKey='score' fill='#8884d8' /> */}
           <Bar dataKey='perc' fill='#82ca9d' />
+          {/* <Bar dataKey='simple' fill='#413ea0' /> */}
         </BarChart>
       </CardContent>
     </Card>
@@ -104,7 +102,7 @@ const CompanyScoresOverview = (props) => {
     >
       <div>
         <CompanyScoresView
-          name={company.naam}
+          naam={company.naam}
           score_env={company.score_env}
           score_social={company.score_social}
           score_governance={company.score_governance}
