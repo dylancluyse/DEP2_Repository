@@ -59,9 +59,10 @@ const CompanyScoresView = ({
         <Typography variant='h5' component='h2'>
           Scores:
         </Typography>
+
         <BarChart
-          width={500}
-          height={300}
+          width={380}
+          height={280}
           data={data}
           margin={{
             top: 5,

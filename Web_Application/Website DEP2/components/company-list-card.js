@@ -38,7 +38,12 @@ const CompanyList = (props) => {
         key={`${company.ondernemingsnummer}`}
         component='a'
         selected={selectedIndex === counter}
-        onClick={doSomething(companySetter, company.ondernemingsnummer, setSelectedIndex, counter)}
+        onClick={doSomething(
+          companySetter,
+          company.ondernemingsnummer,
+          setSelectedIndex,
+          counter
+        )}
       >
         <ListItemText primary={`${company.naam}`} />
       </ListItemButton>
@@ -48,7 +53,7 @@ const CompanyList = (props) => {
     <Box
       sx={{
         width: '100%',
-        maxWidth: '33%',
+        maxWidth: '20%',
         bgcolor: 'background.paper',
         overflow: 'scroll',
       }}
