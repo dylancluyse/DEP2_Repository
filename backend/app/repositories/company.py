@@ -36,7 +36,7 @@ class CompanyRespository(BaseRepository):
         return result
 
     def fetch_company_view(self, naam):
-        q = '''SELECT * from "website_data" WHERE ondernemingsnummer = (%s)'''
+        q = '''SELECT * from "view_website_data" WHERE ondernemingsnummer = (%s)'''
         v = [naam]
         result, description = self.fetch_all(q, v)
 
