@@ -30,6 +30,7 @@ def read_root():
 def read_item():
     ondernemingsnummer = "419119578"
     company = app.state.company_repository.fetch_company_view(ondernemingsnummer)
+    print(company)
     return {"data": company}
 
 @app.get("/sector") # alle sectors
@@ -42,6 +43,11 @@ def get_sector_by_name(sector_name: str):
     sector = app.state.sector_repository.fetch_company_by_sector(sector_name)
     return {"data": sector}
 
+@app.get("/sector/data/{sector_name}") # specifieke sectors
+def get_sector_data_by_name(sector_name: str):
+    sector = app.state.sector_repository.fetch_sector_overview(sector_name)
+    return {"data": sector}
+
 @app.get("/company") # alle companies
 def get_all_companies():
     companylist = app.state.company_repository.fetch_all_company_names()
@@ -50,7 +56,10 @@ def get_all_companies():
 @app.get("/company/{company_id}") # specifieke company
 def get_company_by_name(company_id: str):
     company = app.state.company_repository.fetch_company_view(company_id)
+    # print(company)
     return {"data": company}
+
+
 
 
 @app.get("/sector/{company_id}")
