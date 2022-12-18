@@ -16,3 +16,15 @@ class SectorRepository(BaseRepository):
         # return [company[0] for company in result]
         return [{"naam": company[0], "ondernemingsnummer": company[1]} for company in result]
         # return resrlt
+
+
+    def fetch_sector_overview(self, naam):
+        q = '''SELECT * from "view_sector_overview" WHERE sectornaam = (%s)'''
+        v = [naam]
+        result, description = self.fetch_all(q, v)
+
+        if result:
+            column_names = [column_description[0] for column_description in description]
+            res = {k: v for k, v in zip(column_names, result[0])}
+            return res
+        return {}
