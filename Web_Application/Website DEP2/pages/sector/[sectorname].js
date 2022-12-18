@@ -8,6 +8,7 @@ import CompanyGraph from '../../components/Company-score-graph.js';
 import CompanyOverview from '../../components/company-card.js';
 import { useState, useCallback } from 'react';
 import React from 'react';
+import { memo } from 'react';
 import {
   ComposedChart,
   Line,
@@ -21,34 +22,31 @@ import {
   Scatter,
   ResponsiveContainer,
 } from 'recharts';
+import useSWR from 'swr';
+import fetcher from '../../lib/fetcher';
 
 const Post = () => {
   const router = useRouter();
   const { sectorname, company } = router.query;
-  const data = [
-    { name: 'Page A', uv: 400, mean: 375 },
-    { name: 'Page B', uv: 500, mean: 375 },
-    { name: 'Page C', uv: 500, mean: 375 },
-    { name: 'Page D', uv: 600, mean: 375 },
-  ];
 
   const [selectedCompany, setSelectedCompany] = useState('');
+  
+  const sectorData = "";
+
+  const { data: response, error } = useSWR(
+    `http://localhost:8000/sector/data/${sectorname}`,
+    fetcher
+  );
+  if (response) {
+    const { data } = response;
+    sectorData = data;
+  }
+  console.log(sectorData)
 
   const setSetterWithoutReload = useCallback((companyName) => {
     setSelectedCompany(companyName);
   }, []);
 
-  const renderLineChart = (
-    <ComposedChart width={380} height={350} padding={10} data={data}>
-      <CartesianGrid stroke='#f5f5f5' />
-      <XAxis dataKey='name' scale='band' />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Bar dataKey='uv' barSize={20} fill='#413ea0' />
-      <Line type='monotone' dataKey='mean' stroke='#ff7300' />
-    </ComposedChart>
-  );
 
   return (
     <div class='overflow-hidden	'>
@@ -103,10 +101,10 @@ const Post = () => {
               <CompanyGraph company={selectedCompany} />
             </div>
             <div class=''>
-              <CompanyVsSector company={selectedCompany} />
+              <CompanyVsSector company={selectedCompany} sectorData={sectorData} />
             </div>
             <div class=''>
-              <CompanyVsCompany company={selectedCompany} />
+              <CompanyVsCompany company={selectedCompany} sectorData={sectorData} />
             </div>
           </div>
         </div>
