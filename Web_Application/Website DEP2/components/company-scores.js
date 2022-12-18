@@ -30,22 +30,13 @@ const CompanyScoresView = ({
           Scores:
         </Typography>
         <Typography>
-          Score Environment: {Math.round(score_env * 100) / 100}
+          Environment: {Math.round(perc_environment * 100)}<sup>e</sup> percentiel
         </Typography>
         <Typography>
-          Score Social: {Math.round(score_social * 100) / 100}
+          Social: {Math.round(per_social * 100)}<sup>e</sup> percentiel
         </Typography>
         <Typography>
-          Score Governance: {Math.round(score_governance * 100) / 100}
-        </Typography>
-        <Typography>
-          Percentage Environment: {Math.round(perc_environment * 100) / 100}
-        </Typography>
-        <Typography>
-          Percentage Social: {Math.round(per_social * 100) / 100}
-        </Typography>
-        <Typography>
-          Percentage Governance: {Math.round(perc_governance * 100) / 100}
+          Governance: {Math.round(perc_governance * 100)}<sup>e</sup> percentiel
         </Typography>
         <Typography>
           Simple Environment Score: {Math.round(simple_env_scores * 100) / 100}
@@ -86,12 +77,12 @@ const CompanyScoresOverview = (props) => {
       <div>
         <CompanyScoresView
           name={company.naam}
-          score_env={company.score_env}
-          score_social={company.score_social}
-          score_governance={company.score_governance}
-          perc_environment={company.perc_environment}
-          per_social={company.per_social}
-          perc_governance={company.perc_governance}
+          score_env={company.subdomeinen_environment}
+          score_social={company.subdomeinen_social}
+          score_governance={company.subdomeinen_governance}
+          perc_environment={company.domein_environment}
+          per_social={company.domein_social}
+          perc_governance={company.domein_governance}
           simple_env_scores={company.simple_env_scores}
           simple_soc_scores={company.simple_soc_scores}
           simple_gov_scores={company.simple_gov_scores}
