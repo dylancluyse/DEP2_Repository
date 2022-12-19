@@ -24,6 +24,7 @@ import {
 } from 'recharts';
 import useSWR from 'swr';
 import fetcher from '../../lib/fetcher';
+import { CompanySubDomainScoresOverviewEnvironment, CompanySubDomainScoresOverviewGovernance, CompanySubDomainScoresOverviewSocial } from '../../components/company-subdomain-graph.js';
 
 const Post = () => {
   const router = useRouter();
@@ -42,6 +43,19 @@ const Post = () => {
     sectorData = data;
   }
   console.log(sectorData)
+
+  const subdomainInformation = "";
+  const { data: informationResponse  } = useSWR(
+    `http://localhost:8000/data/subdomains`,
+    fetcher
+  );
+  if (informationResponse) {
+    const { data: dataResponse } = informationResponse;
+    subdomainInformation = dataResponse;
+  }
+
+
+
 
   const setSetterWithoutReload = useCallback((companyName) => {
     setSelectedCompany(companyName);
@@ -89,7 +103,7 @@ const Post = () => {
         <div class=' relative bg-gradient-to-r from-light-yellow to-light-yellow w-full text-black overflow-hidden '>
           {/* plaats voor gegevens bedrijf + grafieken */}
 
-          <div class='grid grid-cols-3 grid-rows-2 gap-0.5 '>
+          <div class='grid grid-cols-3 grid-rows-3 gap-0.5 '>
             <div class='box row-start-1 row-end-1 col-start-1 col-end-2 ml-24 mt-10 '>
               <CompanyOverview company={selectedCompany} />
             </div>
@@ -104,7 +118,15 @@ const Post = () => {
               <CompanyVsSector company={selectedCompany} sectorData={sectorData} />
             </div>
             <div class=''>
-              <CompanyVsCompany company={selectedCompany} sectorData={sectorData} />
+            </div>
+            <div class=''>
+              <CompanySubDomainScoresOverviewEnvironment company={selectedCompany} sectorData={sectorData} subdomainInformation={subdomainInformation} />
+            </div>
+            <div class=''>
+              <CompanySubDomainScoresOverviewSocial company={selectedCompany} sectorData={sectorData} subdomainInformation={subdomainInformation} />
+            </div>
+            <div class=''>
+              <CompanySubDomainScoresOverviewGovernance company={selectedCompany} sectorData={sectorData} subdomainInformation={subdomainInformation} />
             </div>
           </div>
         </div>
