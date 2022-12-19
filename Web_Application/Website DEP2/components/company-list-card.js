@@ -6,6 +6,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import useSWR from 'swr';
 import fetcher from '../lib/fetcher';
+import {useMemo} from 'react';
 
 function doSomething(setter, company, foo, counter) {
   return function () {
@@ -15,7 +16,7 @@ function doSomething(setter, company, foo, counter) {
 
 const CompanyList = (props) => {
   const sectorName = props.sector;
-  const { companySetter } = props;
+  const { companySetter, searchQuery } = props;
   const [selectedIndex, setSelectedIndex] = React.useState(-1);
 
   const { data: companyList, error } = useSWR(
@@ -27,8 +28,16 @@ const CompanyList = (props) => {
 
   const { data: companiesForSector } = companyList;
 
+  if (!searchQuery) {
+    searchQuery = ""
+  }
+
+  const results = companiesForSector.filter((company) =>
+        company.naam.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+
   const counter = -1;
-  const complijst = companiesForSector.map((company) => {
+  const complijst = results.map((company) => {
     counter += 1;
     return (
       <ListItemButton

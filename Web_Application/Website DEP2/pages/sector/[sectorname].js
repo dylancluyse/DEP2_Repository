@@ -26,6 +26,8 @@ const Post = () => {
   const [filter, setFilter] = useState(Boolean(alphabetical));
   const [isLoading, setLoading] = useState(true);
 
+  const [searchQuery, setSearchQuery] = useState("")
+
   const sectorData = "";
   
 
@@ -47,6 +49,16 @@ const Post = () => {
     const { data: dataResponse } = informationResponse;
     subdomainInformation = dataResponse;
   }
+
+  const debouncedHandleChange = useCallback(
+    (event) => {
+      setLoading(true)
+      setTimeout(() => {
+        setSearchQuery(event)
+      }, 500);
+    },
+    []
+  );
 
 
   const setSetterWithoutReload = useCallback((companyName) => {
@@ -83,7 +95,8 @@ const Post = () => {
             type='text'
             placeholder='Search...'
             id='zoekBedrijfInSector'
-          ></input>
+            onChange={e => {debouncedHandleChange(e.target.value)}}
+          />
           <button
             class='px-2 py-2 rounded-lg bg-lichtblauw text-white'
             type='submit'
@@ -126,6 +139,7 @@ const Post = () => {
           companySetter={setSetterWithoutReload}
           alphabetical={filter}
           isLoading={setLoading}
+          searchQuery={searchQuery}
         />
         <div class=' relative bg-gradient-to-r from-Grijs to-Grijs w-full text-black overflow-hidden '>
           {/* plaats voor gegevens bedrijf + grafieken */}
