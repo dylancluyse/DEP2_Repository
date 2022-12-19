@@ -2,13 +2,10 @@ import * as React from 'react';
 import { memo } from 'react';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import { useState, useEffect } from 'react';
-import useSWR, { mutate } from 'swr';
+import useSWR from 'swr';
 import fetcher from '../lib/fetcher';
-import Router from 'next/router';
 
 function doSomething(setter, company, foo, counter) {
   return function () {
@@ -22,7 +19,7 @@ const CompanyList = (props) => {
   const [selectedIndex, setSelectedIndex] = React.useState(-1);
 
   const { data: companyList, error } = useSWR(
-    `http://localhost:8000/sector/${sectorName}`,
+    `http://localhost:8000/sector/${sectorName}?alphabetical=${props.alphabetical}`,
     fetcher
   );
   if (error) return <div>failed to load</div>;
@@ -35,7 +32,6 @@ const CompanyList = (props) => {
     counter += 1;
     return (
       <ListItemButton
-        key={`${company.ondernemingsnummer}`}
         component='a'
         selected={selectedIndex === counter}
         onClick={doSomething(
@@ -49,6 +45,7 @@ const CompanyList = (props) => {
       </ListItemButton>
     );
   });
+  props.isLoading(false)
   return (
     <Box
       sx={{
