@@ -28,3 +28,14 @@ class SectorRepository(BaseRepository):
             res = {k: v for k, v in zip(column_names, result[0])}
             return res
         return {}
+
+
+    def fetch_subdomain_information(self):
+        q = '''SELECT * from "view_categorie_per_domein"'''
+        v = []
+        result, description = self.fetch_all(q, v)
+
+        if result:
+            return {k:v for k,v in result} # {foo: [fizz, buzz], bar: [alice, bob, charlie]}
+        return {}
+
