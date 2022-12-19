@@ -39,8 +39,12 @@ def get_all_sectors():
     return {"data": sectors}
 
 @app.get("/sector/{sector_name}") # specifieke sectors
-def get_sector_by_name(sector_name: str):
-    sector = app.state.sector_repository.fetch_company_by_sector(sector_name)
+def get_sector_by_name(sector_name: str, alphabetical: bool = False):
+    print(alphabetical)
+    if alphabetical:
+        sector = app.state.sector_repository.fetch_company_by_sector_by_name(sector_name)
+    else:
+        sector = app.state.sector_repository.fetch_company_by_sector_by_score(sector_name)
     return {"data": sector}
 
 @app.get("/sector/data/{sector_name}") # specifieke sectors

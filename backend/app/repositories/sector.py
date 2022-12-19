@@ -11,8 +11,18 @@ class SectorRepository(BaseRepository):
     #     result = self.fetch_all('''SELECT * from "Sector" where "sectornaam" = (%s)''',[sector_naam])
     #     return result
 
-    def fetch_company_by_sector(self, sector_naam):
-        result, description = self.fetch_all('''select naam, ondernemingsnummer from "KMO" join "Sector" ON "Sector".sectornummer = "KMO".sectorid WHERE "Sector".sectornaam = (%s)''',[sector_naam])
+    def fetch_company_by_sector_by_score(self, sector_naam):
+        q = '''SELECT naam, ondernemingsnummer from "view_website_data" WHERE sectornaam = (%s)'''
+        v = [sector_naam]
+        result, description = self.fetch_all(q, v)
+        # return [company[0] for company in result]
+        return [{"naam": company[0], "ondernemingsnummer": company[1]} for company in result]
+        # return resrlt
+
+    def fetch_company_by_sector_by_name(self, sector_naam):
+        q = '''SELECT naam, ondernemingsnummer from "view_website_data" WHERE sectornaam = (%s) order by naam'''
+        v = [sector_naam]
+        result, description = self.fetch_all(q, v)
         # return [company[0] for company in result]
         return [{"naam": company[0], "ondernemingsnummer": company[1]} for company in result]
         # return resrlt
