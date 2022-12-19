@@ -1,6 +1,6 @@
 
 function toPercentage(number) {
-  return (number * 100).toFixed(2) 
+  return parseFloat((number * 100).toFixed(2))
 }
 
 export const formatGraphDataToPercentages = (data, keys) => {
