@@ -8,6 +8,7 @@ import CompanyGraph from '../../components/Company-score-graph.js';
 import CompanyOverview from '../../components/company-card.js';
 import { useState, useCallback } from 'react';
 import React from 'react';
+import { memo } from 'react';
 import {
   ComposedChart,
   Line,
@@ -21,41 +22,52 @@ import {
   Scatter,
   ResponsiveContainer,
 } from 'recharts';
+import useSWR from 'swr';
+import fetcher from '../../lib/fetcher';
+import { CompanySubDomainScoresOverviewEnvironment, CompanySubDomainScoresOverviewGovernance, CompanySubDomainScoresOverviewSocial } from '../../components/company-subdomain-graph.js';
 
 const Post = () => {
   const router = useRouter();
   const { sectorname, company } = router.query;
-  const data = [
-    { name: 'Page A', uv: 400, mean: 375 },
-    { name: 'Page B', uv: 500, mean: 375 },
-    { name: 'Page C', uv: 500, mean: 375 },
-    { name: 'Page D', uv: 600, mean: 375 },
-  ];
 
   const [selectedCompany, setSelectedCompany] = useState('');
+  
+  const sectorData = "";
+
+  const { data: response, error } = useSWR(
+    `http://localhost:8000/sector/data/${sectorname}`,
+    fetcher
+  );
+  if (response) {
+    const { data } = response;
+    sectorData = data;
+  }
+  console.log(sectorData)
+
+  const subdomainInformation = "";
+  const { data: informationResponse  } = useSWR(
+    `http://localhost:8000/data/subdomains`,
+    fetcher
+  );
+  if (informationResponse) {
+    const { data: dataResponse } = informationResponse;
+    subdomainInformation = dataResponse;
+  }
+
+
+
 
   const setSetterWithoutReload = useCallback((companyName) => {
     setSelectedCompany(companyName);
   }, []);
 
-  const renderLineChart = (
-    <ComposedChart width={380} height={350} padding={10} data={data}>
-      <CartesianGrid stroke='#f5f5f5' />
-      <XAxis dataKey='name' scale='band' />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Bar dataKey='uv' barSize={20} fill='#413ea0' />
-      <Line type='monotone' dataKey='mean' stroke='#ff7300' />
-    </ComposedChart>
-  );
 
   return (
     <div class='overflow-hidden	'>
       <div>
         <a
           href='/'
-          class='absolute mt-2 mb-5 m-5 text-white bg-blue-de-france hover:bg-blue-800  focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
+          class='absolute mt-2 mb-5 m-5 text-white bg-blue-de-france hover:bg-blue-800  focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 z-10'
         >
           back
         </a>
@@ -91,7 +103,7 @@ const Post = () => {
         <div class=' relative bg-gradient-to-r from-light-yellow to-light-yellow w-full text-black overflow-hidden '>
           {/* plaats voor gegevens bedrijf + grafieken */}
 
-          <div class='grid grid-cols-3 grid-rows-2 gap-0.5 '>
+          <div class='grid grid-cols-3 grid-rows-3 gap-0.5 '>
             <div class='box row-start-1 row-end-1 col-start-1 col-end-2 ml-24 mt-10 '>
               <CompanyOverview company={selectedCompany} />
             </div>
@@ -103,10 +115,18 @@ const Post = () => {
               <CompanyGraph company={selectedCompany} />
             </div>
             <div class=''>
-              <CompanyVsSector company={selectedCompany} />
+              <CompanyVsSector company={selectedCompany} sectorData={sectorData} />
             </div>
             <div class=''>
-              <CompanyVsCompany company={selectedCompany} />
+            </div>
+            <div class=''>
+              <CompanySubDomainScoresOverviewEnvironment company={selectedCompany} sectorData={sectorData} subdomainInformation={subdomainInformation} />
+            </div>
+            <div class=''>
+              <CompanySubDomainScoresOverviewSocial company={selectedCompany} sectorData={sectorData} subdomainInformation={subdomainInformation} />
+            </div>
+            <div class=''>
+              <CompanySubDomainScoresOverviewGovernance company={selectedCompany} sectorData={sectorData} subdomainInformation={subdomainInformation} />
             </div>
           </div>
         </div>

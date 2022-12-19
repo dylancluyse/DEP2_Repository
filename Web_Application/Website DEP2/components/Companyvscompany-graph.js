@@ -19,34 +19,39 @@ import {
   Tooltip,
   Legend,
 } from 'recharts';
+import { formatGraphDataToPercentages } from '../utils/graphFormatter.js';
+
+
 
 const CompanyScoresView = ({
   naam,
-  score_env,
-  score_social,
-  score_governance,
-  perc_environment,
-  per_social,
-  perc_governance,
-  simple_env_scores,
-  simple_soc_scores,
-  simple_gov_scores,
+  companyScoreEnvironment,
+  companyScoreSocial,
+  companyScoreGovernance,
+  sectorScoreEnvironment,
+  sectorScoreSocial,
+  sectorScoreGovernance,
   sectornaam,
 }) => {
   const data = [
     {
-      name: naam,
-      //score: score_env,
-      perc: perc_environment * 100,
-      //simple: simple_env_scores,
+      name: "Environment",
+      companyScore: companyScoreEnvironment,
+      sectorScore: sectorScoreEnvironment,
     },
     {
-      name: sectornaam,
-      // score: score_social,
-      perc: per_social * 100,
-      //simple: simple_soc_scores,
+      name: "Social",
+      companyScore: companyScoreSocial,
+      sectorScore: sectorScoreSocial,
     },
+    {
+      name: "Governance",
+      companyScore: companyScoreGovernance,
+      sectorScore: sectorScoreGovernance,
+    }
   ];
+
+  const formattedData = formatGraphDataToPercentages(data, ["companyScore", "sectorScore"]);
 
   return (
     <Card class=' p-5 bg-gradient-to-r from-light-yellow to-light-yellow'>
@@ -58,7 +63,7 @@ const CompanyScoresView = ({
         <BarChart
           width={380}
           height={280}
-          data={data}
+          data={formattedData}
           margin={{
             top: 5,
             right: 30,
@@ -71,9 +76,8 @@ const CompanyScoresView = ({
           <YAxis />
           <Tooltip />
           <Legend />
-          {/* <Bar dataKey='score' fill='#8884d8' /> */}
-          <Bar dataKey='perc' fill='#82ca9d' />
-          {/* <Bar dataKey='simple' fill='#413ea0' /> */}
+          <Bar dataKey='companyScore' fill='#82ca9d' name={naam} />
+          <Bar dataKey='sectorScore' fill='#413ea0' name={sectornaam} />
         </BarChart>
       </CardContent>
     </Card>
@@ -82,7 +86,7 @@ const CompanyScoresView = ({
 
 const CompanyScoresOverview = (props) => {
   if (!props.company) {
-    return <p>Please select a company.</p>;
+    return "";
   }
 
   const { data: companyList, error } = useSWR(
@@ -94,6 +98,11 @@ const CompanyScoresOverview = (props) => {
 
   const { data: company } = companyList;
 
+  const sectorData = props.sectorData;
+
+  console.log(company)
+  console.log(sectorData)
+
   return (
     <Box
       sx={{
@@ -104,15 +113,15 @@ const CompanyScoresOverview = (props) => {
       <div>
         <CompanyScoresView
           naam={company.naam}
-          score_env={company.score_env}
-          score_social={company.score_social}
-          score_governance={company.score_governance}
-          perc_environment={company.perc_environment}
-          per_social={company.per_social}
-          perc_governance={company.perc_governance}
-          simple_env_scores={company.simple_env_scores}
-          simple_soc_scores={company.simple_soc_scores}
-          simple_gov_scores={company.simple_gov_scores}
+
+          companyScoreEnvironment={company.domein_environment}
+          companyScoreSocial={company.domein_social}
+          companyScoreGovernance={company.domein_governance}
+
+          sectorScoreEnvironment={sectorData.per_env[1]}
+          sectorScoreSocial={sectorData.per_soc[1]}
+          sectorScoreGovernance={sectorData.per_gov[1]}
+
           sectornaam={company.sectornaam}
         />
       </div>

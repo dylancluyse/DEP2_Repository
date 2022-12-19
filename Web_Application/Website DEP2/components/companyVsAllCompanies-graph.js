@@ -106,9 +106,9 @@ const CompanyScoresOverview = (props) => {
           score_env={company.score_env}
           score_social={company.score_social}
           score_governance={company.score_governance}
-          perc_environment={company.perc_environment}
-          per_social={company.per_social}
-          perc_governance={company.perc_governance}
+          perc_environment={company.domein_environment}
+          per_social={company.domein_social}
+          perc_governance={company.domein_governance}
           simple_env_scores={company.simple_env_scores}
           simple_soc_scores={company.simple_soc_scores}
           simple_gov_scores={company.simple_gov_scores}

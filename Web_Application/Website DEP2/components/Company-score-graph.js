@@ -19,36 +19,30 @@ import {
   Tooltip,
   Legend,
 } from 'recharts';
+import { formatGraphDataToPercentages } from '../utils/graphFormatter';
 
 const CompanyScoresView = ({
   name,
-  score_env,
-  score_social,
-  score_governance,
-  perc_environment,
-  per_social,
-  perc_governance,
-  simple_env_scores,
-  simple_soc_scores,
-  simple_gov_scores,
+  scoreDomeinEnvironment,
+  scoreDomeinSocial,
+  scoreDomeinGovernance,
 }) => {
   const data = [
     {
       name: 'Environment',
-      score: score_env,
-      perc: perc_environment,
+      score: scoreDomeinEnvironment,
     },
     {
       name: 'Social',
-      score: score_social,
-      perc: per_social,
+      score: scoreDomeinSocial,
     },
     {
       name: 'Governance',
-      score: score_governance,
-      perc: perc_governance,
+      score: scoreDomeinGovernance,
     },
   ];
+
+  const formattedData = formatGraphDataToPercentages(data, ["score"]) 
 
   return (
     <Card class=' p-5 bg-gradient-to-r from-light-yellow to-light-yellow'>
@@ -60,7 +54,7 @@ const CompanyScoresView = ({
         <BarChart
           width={380}
           height={280}
-          data={data}
+          data={formattedData}
           margin={{
             top: 5,
             right: 30,
@@ -74,7 +68,6 @@ const CompanyScoresView = ({
           <Tooltip />
           <Legend />
           <Bar dataKey='score' fill='#8884d8' />
-          <Bar dataKey='perc' fill='#82ca9d' />
         </BarChart>
       </CardContent>
     </Card>
@@ -83,7 +76,7 @@ const CompanyScoresView = ({
 
 const CompanyScoresOverview = (props) => {
   if (!props.company) {
-    return <p>Please select a company.</p>;
+    return "";
   }
 
   const { data: companyList, error } = useSWR(
@@ -105,15 +98,9 @@ const CompanyScoresOverview = (props) => {
       <div>
         <CompanyScoresView
           name={company.naam}
-          score_env={company.score_env}
-          score_social={company.score_social}
-          score_governance={company.score_governance}
-          perc_environment={company.perc_environment}
-          per_social={company.per_social}
-          perc_governance={company.perc_governance}
-          simple_env_scores={company.simple_env_scores}
-          simple_soc_scores={company.simple_soc_scores}
-          simple_gov_scores={company.simple_gov_scores}
+          scoreDomeinEnvironment={company.domein_environment}
+          scoreDomeinSocial={company.domein_social}
+          scoreDomeinGovernance={company.domein_governance}
         />
       </div>
     </Box>
