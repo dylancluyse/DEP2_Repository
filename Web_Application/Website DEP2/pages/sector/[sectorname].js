@@ -67,7 +67,7 @@ const Post = () => {
       <div>
         <a
           href='/'
-          class='absolute mt-2 mb-5 m-5 text-white bg-blue-de-france hover:bg-blue-800  focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 z-10'
+          class='absolute mt-2 mb-5 m-5 text-white bg-lichtblauw font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2  z-10'
         >
           back
         </a>
