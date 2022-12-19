@@ -59,7 +59,11 @@ def get_company_by_name(company_id: str):
     # print(company)
     return {"data": company}
 
-
+@app.get("/data/subdomains") # specifieke company
+def get_subdomain_information():
+    subdomain_information = app.state.sector_repository.fetch_subdomain_information()
+    # print(company)
+    return {"data": subdomain_information}
 
 
 @app.get("/sector/{company_id}")
