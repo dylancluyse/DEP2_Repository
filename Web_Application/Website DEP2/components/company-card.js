@@ -13,7 +13,7 @@ import fetcher from '../lib/fetcher';
 
 const CompanyView = ({ name, id, website, sector, foundingDate }) => {
   return (
-    <Card class='p-5 bg-gradient-to-r from-light-yellow to-light-yellow'>
+    <Card class='p-5 bg-gradient-to-r from-Grijs to-Grijs'>
       <CardContent class='grid justify-center grid-cols-1 gap-0.5 '>
         <Typography variant='h5' component='h2'>
           {name}
@@ -30,7 +30,7 @@ const CompanyView = ({ name, id, website, sector, foundingDate }) => {
     </Card>
   );
 };
-
+const kleur = '#6D6D6D';
 const CompanyOverview = (props) => {
   if (!props.company) {
     return <p>Please select a company.</p>;

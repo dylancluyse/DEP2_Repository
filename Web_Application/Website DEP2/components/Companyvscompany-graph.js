@@ -21,8 +21,6 @@ import {
 } from 'recharts';
 import { formatGraphDataToPercentages } from '../utils/graphFormatter.js';
 
-
-
 const CompanyScoresView = ({
   naam,
   companyScoreEnvironment,
@@ -35,26 +33,29 @@ const CompanyScoresView = ({
 }) => {
   const data = [
     {
-      name: "Environment",
+      name: 'Environment',
       companyScore: companyScoreEnvironment,
       sectorScore: sectorScoreEnvironment,
     },
     {
-      name: "Social",
+      name: 'Social',
       companyScore: companyScoreSocial,
       sectorScore: sectorScoreSocial,
     },
     {
-      name: "Governance",
+      name: 'Governance',
       companyScore: companyScoreGovernance,
       sectorScore: sectorScoreGovernance,
-    }
+    },
   ];
 
-  const formattedData = formatGraphDataToPercentages(data, ["companyScore", "sectorScore"]);
+  const formattedData = formatGraphDataToPercentages(data, [
+    'companyScore',
+    'sectorScore',
+  ]);
 
   return (
-    <Card class=' p-5 bg-gradient-to-r from-light-yellow to-light-yellow'>
+    <Card class=' p-5 bg-gradient-to-r from-Grijs to-Grijs'>
       <CardContent class='grid justify-center grid-cols-1 gap-0.5 '>
         <Typography variant='p' component='p'>
           Scores {naam} vs gemiddelde van sector:
@@ -76,8 +77,8 @@ const CompanyScoresView = ({
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey='companyScore' fill='#82ca9d' name={naam} />
-          <Bar dataKey='sectorScore' fill='#413ea0' name={sectornaam} />
+          <Bar dataKey='companyScore' fill='#9ecb88' name={naam} />
+          <Bar dataKey='sectorScore' fill='#6883BA' name={sectornaam} />
         </BarChart>
       </CardContent>
     </Card>
@@ -86,7 +87,7 @@ const CompanyScoresView = ({
 
 const CompanyScoresOverview = (props) => {
   if (!props.company) {
-    return "";
+    return '';
   }
 
   const { data: companyList, error } = useSWR(
@@ -100,8 +101,8 @@ const CompanyScoresOverview = (props) => {
 
   const sectorData = props.sectorData;
 
-  console.log(company)
-  console.log(sectorData)
+  console.log(company);
+  console.log(sectorData);
 
   return (
     <Box
@@ -113,15 +114,12 @@ const CompanyScoresOverview = (props) => {
       <div>
         <CompanyScoresView
           naam={company.naam}
-
           companyScoreEnvironment={company.domein_environment}
           companyScoreSocial={company.domein_social}
           companyScoreGovernance={company.domein_governance}
-
           sectorScoreEnvironment={sectorData.per_env[1]}
           sectorScoreSocial={sectorData.per_soc[1]}
           sectorScoreGovernance={sectorData.per_gov[1]}
-
           sectornaam={company.sectornaam}
         />
       </div>

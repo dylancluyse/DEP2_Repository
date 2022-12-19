@@ -48,7 +48,7 @@ const CompanyScoresView = ({
   ];
 
   return (
-    <Card class=' p-5 bg-gradient-to-r from-light-yellow to-light-yellow'>
+    <Card class=' p-5 bg-gradient-to-r from-Grijs to-Grijs'>
       <CardContent class='grid justify-center grid-cols-1 gap-0.5 '>
         <Typography variant='p' component='p'>
           Scores {naam} vs gemiddelde alle bedrijven:

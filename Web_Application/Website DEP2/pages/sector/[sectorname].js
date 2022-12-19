@@ -24,15 +24,19 @@ import {
 } from 'recharts';
 import useSWR from 'swr';
 import fetcher from '../../lib/fetcher';
-import { CompanySubDomainScoresOverviewEnvironment, CompanySubDomainScoresOverviewGovernance, CompanySubDomainScoresOverviewSocial } from '../../components/company-subdomain-graph.js';
+import {
+  CompanySubDomainScoresOverviewEnvironment,
+  CompanySubDomainScoresOverviewGovernance,
+  CompanySubDomainScoresOverviewSocial,
+} from '../../components/company-subdomain-graph.js';
 
 const Post = () => {
   const router = useRouter();
   const { sectorname, company } = router.query;
 
   const [selectedCompany, setSelectedCompany] = useState('');
-  
-  const sectorData = "";
+
+  const sectorData = '';
 
   const { data: response, error } = useSWR(
     `http://localhost:8000/sector/data/${sectorname}`,
@@ -42,10 +46,10 @@ const Post = () => {
     const { data } = response;
     sectorData = data;
   }
-  console.log(sectorData)
+  console.log(sectorData);
 
-  const subdomainInformation = "";
-  const { data: informationResponse  } = useSWR(
+  const subdomainInformation = '';
+  const { data: informationResponse } = useSWR(
     `http://localhost:8000/data/subdomains`,
     fetcher
   );
@@ -54,13 +58,9 @@ const Post = () => {
     subdomainInformation = dataResponse;
   }
 
-
-
-
   const setSetterWithoutReload = useCallback((companyName) => {
     setSelectedCompany(companyName);
   }, []);
-
 
   return (
     <div class='overflow-hidden	'>
@@ -75,10 +75,8 @@ const Post = () => {
           {' '}
           {sectorname}
         </h1>
-        <div class='sticky top-0 p-1 mx-10 mt-1 text-center text-xl'>
-          <h2>Score sector:</h2>
-        </div>
-        <form class='flex items-center justify-start w-96 ml-5 pb-5'>
+
+        <form class='flex items-center justify-start w-96 ml-5 pb-5 mt-5'>
           <input
             class='flex-grow px-2 py-1 rounded-lg mr-2 w-16'
             type='text'
@@ -86,7 +84,7 @@ const Post = () => {
             id='zoekBedrijfInSector'
           ></input>
           <button
-            class='px-2 py-1 rounded-lg bg-blue-500 text-white'
+            class='px-2 py-2 rounded-lg bg-lichtblauw text-white'
             type='submit'
           >
             Search
@@ -100,7 +98,7 @@ const Post = () => {
           sector={sectorname}
           companySetter={setSetterWithoutReload}
         />
-        <div class=' relative bg-gradient-to-r from-light-yellow to-light-yellow w-full text-black overflow-hidden '>
+        <div class=' relative bg-gradient-to-r from-Grijs to-Grijs w-full text-black overflow-hidden '>
           {/* plaats voor gegevens bedrijf + grafieken */}
 
           <div class='grid grid-cols-3 grid-rows-3 gap-0.5 '>
@@ -115,18 +113,32 @@ const Post = () => {
               <CompanyGraph company={selectedCompany} />
             </div>
             <div class=''>
-              <CompanyVsSector company={selectedCompany} sectorData={sectorData} />
+              <CompanyVsSector
+                company={selectedCompany}
+                sectorData={sectorData}
+              />
+            </div>
+            <div class=''></div>
+            <div class=''>
+              <CompanySubDomainScoresOverviewEnvironment
+                company={selectedCompany}
+                sectorData={sectorData}
+                subdomainInformation={subdomainInformation}
+              />
             </div>
             <div class=''>
+              <CompanySubDomainScoresOverviewSocial
+                company={selectedCompany}
+                sectorData={sectorData}
+                subdomainInformation={subdomainInformation}
+              />
             </div>
             <div class=''>
-              <CompanySubDomainScoresOverviewEnvironment company={selectedCompany} sectorData={sectorData} subdomainInformation={subdomainInformation} />
-            </div>
-            <div class=''>
-              <CompanySubDomainScoresOverviewSocial company={selectedCompany} sectorData={sectorData} subdomainInformation={subdomainInformation} />
-            </div>
-            <div class=''>
-              <CompanySubDomainScoresOverviewGovernance company={selectedCompany} sectorData={sectorData} subdomainInformation={subdomainInformation} />
+              <CompanySubDomainScoresOverviewGovernance
+                company={selectedCompany}
+                sectorData={sectorData}
+                subdomainInformation={subdomainInformation}
+              />
             </div>
           </div>
         </div>

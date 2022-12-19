@@ -34,7 +34,7 @@ export default function Home() {
   }, [adding]);
 
   return (
-    <div className='flex flex-col items-center justify-center min-h-screen py-2  max-h-screen'>
+    <div className='flex flex-col items-center justify-center min-h-screen py-2  max-h-screen bg-Grijs'>
       <Head>
         <title>Bedrijven</title>
         <link rel='icon' href='/favicon.ico' />
@@ -47,7 +47,7 @@ export default function Home() {
         }}
       />
 
-      <main className='flex flex-col items-center justify-center w-full flex-1 sm:px-20 my-10'>
+      <main className='flex flex-col items-center justify-center w-full flex-1 sm:px-20 my-10 '>
         <h1 className='text-4xl sm:text-6xl font-bold'>Bedrijven</h1>
 
         <form
@@ -65,6 +65,12 @@ export default function Home() {
           }}
           className='flex justify-between space-x-4 px-5 w-full max-w-2xl h-10 mt-10'
         >
+          <button
+            class='btn btn-primary p-2  text-white bg-viesgroen font-medium rounded-lg text-sm '
+            type='button'
+          >
+            Toevoegen zoekterm
+          </button>
           <input
             type='text'
             name='domain'

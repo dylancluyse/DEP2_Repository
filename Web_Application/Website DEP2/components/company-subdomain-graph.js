@@ -25,19 +25,17 @@ import {
 } from 'recharts';
 import { formatGraphDataToPercentages } from '../utils/graphFormatter.js';
 
-
 function matchScoreToWords(words, score) {
-  const out = []
+  const out = [];
   words.forEach((element, index) => {
     out.push({
       name: element,
-      score: score[index]
-    }) 
+      score: score[index],
+    });
   });
-  console.log(out)
+  console.log(out);
   return out;
   // return [Object.assign(...words.map((k, i) => ({[k]: score[i]})))]
-
 }
 
 const CompanyScoresView = ({
@@ -59,15 +57,38 @@ const CompanyScoresView = ({
   //     score: scoreSubdomeinEnvironment[2],
   //   },
   // ];
-  const data = formatGraphDataToPercentages(matchScoreToWords(subdomainInformation, scoreSubdomeinEnvironment), ["score"]) 
-  // const data = matchScoreToWords(subdomainInformation, scoreSubdomeinEnvironment) 
+  const data = formatGraphDataToPercentages(
+    matchScoreToWords(subdomainInformation, scoreSubdomeinEnvironment),
+    ['score']
+  );
+  // const data = matchScoreToWords(subdomainInformation, scoreSubdomeinEnvironment)
 
-const colors = [ '#8884d8', '#82ca9d', '#ff7f0e', '#2ca02c', '#d62728', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf', '#aec7e8', '#ffbb78', '#98df8a', '#ff9896', '#c5b0d5', '#c49c94', '#f7b6d2', '#c7c7c7', '#dbdb8d', '#9edae5',
-];
-  console.log(data)
+  const colors = [
+    '#8884d8',
+    '#82ca9d',
+    '#ff7f0e',
+    '#2ca02c',
+    '#d62728',
+    '#8c564b',
+    '#e377c2',
+    '#7f7f7f',
+    '#bcbd22',
+    '#17becf',
+    '#aec7e8',
+    '#ffbb78',
+    '#98df8a',
+    '#ff9896',
+    '#c5b0d5',
+    '#c49c94',
+    '#f7b6d2',
+    '#c7c7c7',
+    '#dbdb8d',
+    '#9edae5',
+  ];
+  console.log(data);
 
   return (
-    <Card class=' p-5 bg-gradient-to-r from-light-yellow to-light-yellow'>
+    <Card class=' p-5 bg-gradient-to-r from-Grijs to-Grijs'>
       <CardContent class='grid justify-center grid-cols-1 gap-0.5 '>
         <Typography variant='p' component='p'>
           Scores voor subdomein {subdomein}:
@@ -86,12 +107,16 @@ const colors = [ '#8884d8', '#82ca9d', '#ff7f0e', '#2ca02c', '#d62728', '#8c564b
         >
           <CartesianGrid strokeDasharray='3 3' />
           <XAxis dataKey='name' interval={-1} />
-          <YAxis domain={[0, 100]}/>
+          <YAxis domain={[0, 100]} />
           <Tooltip />
           <Legend />
-          <Bar dataKey='score' fill='#8884d8' label={false} name={`Score ${subdomein}`}/>
+          <Bar
+            dataKey='score'
+            fill='#9ecb88'
+            label={false}
+            name={`Score ${subdomein}`}
+          />
         </BarChart>
-
       </CardContent>
     </Card>
   );
@@ -99,7 +124,7 @@ const colors = [ '#8884d8', '#82ca9d', '#ff7f0e', '#2ca02c', '#d62728', '#8c564b
 
 export const CompanySubDomainScoresOverviewEnvironment = (props) => {
   if (!props.company) {
-    return "";
+    return '';
   }
 
   const { data: companyList, error } = useSWR(
@@ -120,19 +145,18 @@ export const CompanySubDomainScoresOverviewEnvironment = (props) => {
     >
       <div>
         <CompanyScoresView
-          subdomein="Environment"
+          subdomein='Environment'
           scoreSubdomeinEnvironment={company.subdomeinen_environment}
-          subdomainInformation={props.subdomainInformation["Environment"]}
+          subdomainInformation={props.subdomainInformation['Environment']}
         />
       </div>
     </Box>
   );
 };
 
-
 export const CompanySubDomainScoresOverviewSocial = (props) => {
   if (!props.company) {
-    return "";
+    return '';
   }
 
   const { data: companyList, error } = useSWR(
@@ -153,9 +177,9 @@ export const CompanySubDomainScoresOverviewSocial = (props) => {
     >
       <div>
         <CompanyScoresView
-          subdomein="Social"
+          subdomein='Social'
           scoreSubdomeinEnvironment={company.subdomeinen_social}
-          subdomainInformation={props.subdomainInformation["Social"]}
+          subdomainInformation={props.subdomainInformation['Social']}
         />
       </div>
     </Box>
@@ -164,7 +188,7 @@ export const CompanySubDomainScoresOverviewSocial = (props) => {
 
 export const CompanySubDomainScoresOverviewGovernance = (props) => {
   if (!props.company) {
-    return "";
+    return '';
   }
 
   const { data: companyList, error } = useSWR(
@@ -185,9 +209,9 @@ export const CompanySubDomainScoresOverviewGovernance = (props) => {
     >
       <div>
         <CompanyScoresView
-          subdomein="Governance"
+          subdomein='Governance'
           scoreSubdomeinEnvironment={company.subdomeinen_governance}
-          subdomainInformation={props.subdomainInformation["Governance"]}
+          subdomainInformation={props.subdomainInformation['Governance']}
         />
       </div>
     </Box>

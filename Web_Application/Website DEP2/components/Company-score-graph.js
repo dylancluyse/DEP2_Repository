@@ -20,7 +20,7 @@ import {
   Legend,
 } from 'recharts';
 import { formatGraphDataToPercentages } from '../utils/graphFormatter';
-
+const kleur = '#EBEBEB';
 const CompanyScoresView = ({
   name,
   scoreDomeinEnvironment,
@@ -42,10 +42,10 @@ const CompanyScoresView = ({
     },
   ];
 
-  const formattedData = formatGraphDataToPercentages(data, ["score"]) 
+  const formattedData = formatGraphDataToPercentages(data, ['score']);
 
   return (
-    <Card class=' p-5 bg-gradient-to-r from-light-yellow to-light-yellow'>
+    <Card class=' p-5 bg-gradient-to-r from-Grijs to-Grijs'>
       <CardContent class='grid justify-center grid-cols-1 gap-0.5 '>
         <Typography variant='p' component='p'>
           Scores {name}:
@@ -67,7 +67,7 @@ const CompanyScoresView = ({
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey='score' fill='#8884d8' />
+          <Bar dataKey='score' fill='#9ecb88' />
         </BarChart>
       </CardContent>
     </Card>
@@ -76,7 +76,7 @@ const CompanyScoresView = ({
 
 const CompanyScoresOverview = (props) => {
   if (!props.company) {
-    return "";
+    return '';
   }
 
   const { data: companyList, error } = useSWR(
@@ -92,7 +92,7 @@ const CompanyScoresOverview = (props) => {
     <Box
       sx={{
         width: '100%',
-        bgcolor: 'background.paper',
+        bgcolor: kleur,
       }}
     >
       <div>

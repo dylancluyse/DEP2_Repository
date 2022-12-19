@@ -23,7 +23,7 @@ const SectorList = () => {
     return (
       <a
         href={url}
-        className='bg-lighter-oxford w-100 p-8 m-5 text-white rounded-lg'
+        className='bg-DonkerGrijs w-100 p-8 m-5 text-white rounded-lg'
       >
         {sector}
       </a>

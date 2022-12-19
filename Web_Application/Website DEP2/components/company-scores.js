@@ -24,19 +24,22 @@ const CompanyScoresView = ({
   simple_gov_scores,
 }) => {
   return (
-    <Card class=' p-5 bg-gradient-to-r from-light-yellow to-light-yellow'>
+    <Card class=' p-5 bg-gradient-to-r from-Grijs to-Grijs'>
       <CardContent class='grid justify-center grid-cols-1 gap-0.5 '>
         <Typography variant='h5' component='h2'>
           Scores:
         </Typography>
         <Typography>
-          Environment: {Math.round(perc_environment * 100)}<sup>e</sup> percentiel
+          Environment: {Math.round(perc_environment * 100)}
+          <sup>e</sup> percentiel
         </Typography>
         <Typography>
-          Social: {Math.round(per_social * 100)}<sup>e</sup> percentiel
+          Social: {Math.round(per_social * 100)}
+          <sup>e</sup> percentiel
         </Typography>
         <Typography>
-          Governance: {Math.round(perc_governance * 100)}<sup>e</sup> percentiel
+          Governance: {Math.round(perc_governance * 100)}
+          <sup>e</sup> percentiel
         </Typography>
         <Typography>
           Simple Environment Score: {Math.round(simple_env_scores * 100) / 100}
