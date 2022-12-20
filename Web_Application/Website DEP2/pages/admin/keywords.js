@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import useSWR from 'swr';
+import AdminKeywordForm from '../../components/admin-keyword-form';
 import fetcher from '../../lib/fetcher';
 
 const parseSubDomain = (subdomain, keywordList) => {
@@ -42,7 +43,6 @@ const createKeywordDomainList = (domain, keywords) => {
 };
 
 const createKeywordList = (fullList) => {
-  console.log(fullList);
   const output = [];
   for (const [domain, keywords] of Object.entries(fullList)) {
     output.push(createKeywordDomainList(domain, keywords));
@@ -58,7 +58,9 @@ export default function keywords() {
   if (error) return <div>failed to load</div>;
   if (!keywords) return <div>loading...</div>;
 
-  const foo = createKeywordList(keywords);
+  const {domains: doms, categories} = keywords;
+
+  const foo = createKeywordList(doms);
 
   return (
     <div>
@@ -69,7 +71,9 @@ export default function keywords() {
         Home
       </a>
       <h1 className='text-center p-5 text-lg font-bold'> Keywords </h1>
-
+      <div>
+        <AdminKeywordForm categories={categories} />
+      </div>
       <div className='flex mx-auto '>{foo}</div>
     </div>
   );

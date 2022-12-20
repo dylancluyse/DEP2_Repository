@@ -36,7 +36,7 @@ class AdminRespository(BaseRepository):
         for domain in domains:
             out = _create_domain_words(domain, out, category_ids)
 
-        return out
+        return {"domains": out, "categories": category_ids}
 
 
     def add_keyword(self, category_id, keyword, language):
