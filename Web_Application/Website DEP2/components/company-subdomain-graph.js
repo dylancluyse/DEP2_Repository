@@ -22,6 +22,7 @@ import {
   PieChart,
   Pie,
   Cell,
+  ReferenceLine,
 } from 'recharts';
 import { formatGraphDataToPercentages } from '../utils/graphFormatter.js';
 
@@ -63,28 +64,6 @@ const CompanyScoresView = ({
   );
   // const data = matchScoreToWords(subdomainInformation, scoreSubdomeinEnvironment)
 
-  const colors = [
-    '#8884d8',
-    '#82ca9d',
-    '#ff7f0e',
-    '#2ca02c',
-    '#d62728',
-    '#8c564b',
-    '#e377c2',
-    '#7f7f7f',
-    '#bcbd22',
-    '#17becf',
-    '#aec7e8',
-    '#ffbb78',
-    '#98df8a',
-    '#ff9896',
-    '#c5b0d5',
-    '#c49c94',
-    '#f7b6d2',
-    '#c7c7c7',
-    '#dbdb8d',
-    '#9edae5',
-  ];
   console.log(data);
 
   return (
@@ -107,7 +86,7 @@ const CompanyScoresView = ({
         >
           <CartesianGrid strokeDasharray='3 3' />
           <XAxis dataKey='name' interval={-1} />
-          <YAxis domain={[0, 100]} />
+          <YAxis domain={[0, 100]} tickCount={6}/>
           <Tooltip />
           <Legend />
           <Bar
@@ -116,6 +95,7 @@ const CompanyScoresView = ({
             label={false}
             name={`Score ${subdomein}`}
           />
+          <ReferenceLine y={20} stroke="#6883BA" strokeDasharray="3 3" />
         </BarChart>
       </CardContent>
     </Card>
