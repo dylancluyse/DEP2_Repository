@@ -18,3 +18,12 @@ class BaseRepository():
         result = cursor.fetchall()
         description = cursor.description
         return result, description
+
+    def insert(self, query, values):
+        #Creating a cursor object using the cursor() method
+        cursor = self.db.conn.cursor()
+        cursor.execute(query, values)
+        self.db.conn.commit()
+        result = cursor.fetchall()
+        description = cursor.description
+        return result, description
