@@ -58,7 +58,7 @@ export default function keywords() {
   if (error) return <div>failed to load</div>;
   if (!keywords) return <div>loading...</div>;
 
-  const {domains: doms, categories} = keywords;
+  const { domains: doms, categories } = keywords;
 
   const foo = createKeywordList(doms);
 
