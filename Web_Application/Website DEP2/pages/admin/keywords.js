@@ -62,10 +62,14 @@ export default function keywords() {
 
   return (
     <div>
-      <h1> Keywords </h1>
-      <div className='flex '>
-        <p> foo </p>
-      </div>
+      <a
+        href='/'
+        class=' absolute mt-2 mb-5 m-5 text-white bg-lichtblauw font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2  z-10'
+      >
+        Home
+      </a>
+      <h1 className='text-center p-5 text-lg font-bold'> Keywords </h1>
+
       <div className='flex mx-auto '>{foo}</div>
     </div>
   );
