@@ -14,3 +14,7 @@ $ poetry shell
 ## DB access
 
 Please see the `.env.example` file and create a `.env` file. (Ask for the missing environment variables)
+
+## PostgreSQL Queries
+
+You can find the used SQL-queries in [this](https://github.com/dylancluyse/DEP2_Repository/blob/main/sql-queries.md) markdown file.
