@@ -144,7 +144,7 @@ const Post = () => {
         <div class=' relative bg-gradient-to-r from-Grijs to-Grijs w-full text-black overflow-hidden '>
           {/* plaats voor gegevens bedrijf + grafieken */}
 
-          <div class='grid grid-cols-3 grid-rows-3 gap-0.5 '>
+          <div class='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 grid-rows-3 gap-0.5'>
             <div class='box row-start-1 row-end-1 col-start-1 col-end-2 ml-24 mt-10 '>
               <CompanyOverview company={selectedCompany} />
             </div>
