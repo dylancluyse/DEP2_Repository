@@ -5,7 +5,7 @@ description = ""
 authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.10,<3.12"
 pandas = "^1.5.1"
 tqdm = "^4.64.1"
 selenium = "^4.5.0"
@@ -21,6 +21,12 @@ openpyxl = "^3.0.10"
 fastapi = "^0.87.0"
 uvicorn = "^0.19.0"
 python-dotenv = "^0.21.0"
+Flask = "^2.2.2"
+tensorflow = "2.10.0"
+keras = "2.10.0"
+sklearn = "^0.0.post1"
+scikit-learn = "^1.2.0"
+deep-translator = "^1.9.1"
 
 [tool.poetry.dev-dependencies]
 

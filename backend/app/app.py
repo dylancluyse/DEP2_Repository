@@ -3,13 +3,17 @@ from app.database import DB
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.repositories.company import CompanyRespository
+from app.repositories.admin import AdminRespository
 from app.repositories.sector import SectorRepository
+from app.handlers.routes.admin import get_admin_router
 
 app = FastAPI()
 app.state.db = DB()
 app.state.db.setup()
 app.state.company_repository = CompanyRespository(db=app.state.db)
 app.state.sector_repository = SectorRepository(db=app.state.db)
+app.state.admin_repository = AdminRespository(db=app.state.db)
+app.include_router(get_admin_router(app))
 
 
 origins = [ "http://localhost:3000", "https://localhost:3000", "https://localhost", "http://localhost" ]

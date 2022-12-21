@@ -9,6 +9,7 @@ import fetcher from '../lib/fetcher';
 import DomainCardPlaceholder from '../components/domain-card-placeholder';
 import Async from 'react-async';
 import SectorList from '../components/sector-card.js';
+import { Button } from '@mui/material';
 
 export default function Home() {
   const [domain, setDomain] = useState('');
@@ -50,51 +51,11 @@ export default function Home() {
       <main className='flex flex-col items-center justify-center w-full flex-1 sm:px-20 my-10 '>
         <h1 className='text-4xl sm:text-6xl font-bold'>Bedrijven</h1>
 
-        <form
-          onSubmit={async (e) => {
-            e.preventDefault();
-            setAdding(true);
-            try {
-              await fetch(`/api/add-domain?domain=${domain}`);
-              await revalidateDomains();
-            } catch (error) {
-              alert(error.message);
-            } finally {
-              setAdding(false);
-            }
-          }}
-          className='flex justify-between space-x-4 px-5 w-full max-w-2xl h-10 mt-10'
-        >
-          <button
-            class='btn btn-primary p-2  text-white bg-viesgroen font-medium rounded-lg text-sm '
-            type='button'
-          >
-            Toevoegen zoekterm
-          </button>
-          <input
-            type='text'
-            name='domain'
-            onInput={(e) => {
-              setDomain(e.target.value);
-            }}
-            autoComplete='off'
-            placeholder='Zoek bedrijf'
-            pattern='^(?:[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.)?[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$'
-            required
-            className='rounded-md border border-gray-300 focus:ring-0 focus:border-black px-4 flex-auto min-w-0 sm:text-sm'
-          />
-          <button
-            type='submit'
-            disabled={disabled}
-            className={`${
-              disabled
-                ? 'cursor-not-allowed bg-gray-100 text-gray-500 border-gray-300'
-                : 'bg-black text-white border-black hover:text-black hover:bg-white'
-            } py-2 w-28 text-sm border-solid border rounded-md focus:outline-none transition-all ease-in-out duration-150`}
-          >
-            {adding ? <LoadingDots /> : 'search'}
-          </button>
-        </form>
+          <Button
+            href='/admin'
+            className=' m-5 text-white bg-lichtblauw hover:bg-gray-500 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2  z-10' >
+            Dashboard
+          </Button>
       </main>
 
       <SectorList />
