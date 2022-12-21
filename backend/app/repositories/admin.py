@@ -33,9 +33,7 @@ class AdminRespository(BaseRepository):
         result, _ = self.fetch_all(q, [])
         category_ids = {k:v for k,v in result}
 
-        for domain in domains:
-            out = _create_domain_words(domain, out, category_ids)
-
+        for domain in domains: out = _create_domain_words(domain, out, category_ids)
         return {"domains": out, "categories": category_ids}
 
 
